@@ -5,6 +5,8 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 public class AuthController {
 
@@ -19,5 +21,17 @@ public class AuthController {
 
     public void exit(ActionEvent event) {
         Platform.exit();
+    }
+
+    public void minimize(ActionEvent event) {
+        ((Stage)((Button) event.getSource()).getScene().getWindow()).setIconified(true);
+    }
+
+    public void clickOnHeader(MouseEvent mouseEvent) {
+        System.out.println("========================================");
+    }
+
+    public void moveWindow(MouseEvent mouseEvent) {
+        System.out.println("========================================");
     }
 }

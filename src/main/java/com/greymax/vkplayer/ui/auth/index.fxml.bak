@@ -31,7 +31,7 @@
     </GridPane>
   </center>
   <top>
-    <ToolBar maxHeight="25.0" minHeight="25.0" onMouseDragged="#moveWindow" onMousePressed="#clickOnHeader" prefHeight="25.0">
+    <ToolBar maxHeight="25.0" minHeight="25.0" prefHeight="25.0">
       <BorderPane maxWidth="280.0" minWidth="280.0" prefWidth="280.0">
         <left>
           <Label>
@@ -45,7 +45,7 @@
         <right>
           <HBox alignment="CENTER_RIGHT" spacing="3.0">
             <children>
-              <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#exit" text="_" />
+              <Button maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0" onAction="#minimize" prefHeight="20.0" prefWidth="20.0" text="_" />
               <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#exit" text="X" />
             </children>
           </HBox>
