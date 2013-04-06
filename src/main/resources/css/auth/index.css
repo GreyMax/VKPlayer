@@ -1,17 +1,17 @@
 .root {
-    -fx-background-color: #51759c;
+  -fx-background-color: #51759c;
 }
 
 .fieldLabel {
-    -fx-font-size: 14pt;
-    -fx-font-weight: bold;
-    -fx-text-fill: white;
-}
-
-.field {
-
+  -fx-font-size: 14pt;
+  -fx-font-weight: bold;
+  -fx-text-fill: white;
 }
 
 .button {
-    -fx-padding: 3 20 3 20;
+  -fx-padding: 3 20 3 20;
+}
+
+.autofill-text {
+  -fx-skin: "com.greymax.vkplayer.ui.components.autocomplete.AutoFillTextBoxSkin";
 }
