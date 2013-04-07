@@ -10,11 +10,15 @@ import com.greymax.vkplayer.services.auth.UserService;
 import com.greymax.vkplayer.ui.components.autocomplete.AutoFillTextBox;
 import com.greymax.vkplayer.ui.components.autocomplete.AutoFillTextBoxSkin;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -24,6 +28,8 @@ import java.util.ResourceBundle;
 public class AuthController implements Initializable {
 
   private static final String CLIENT_ID = "3049094";
+  private static final String VK_PERMISSIONS = "audio,status,friends,wall,video";
+  private static final String ERROR_VALIDATION_STYLE_CLASS = "not-valid";
 
   @FXML
   public AutoFillTextBox loginField;
@@ -42,13 +48,36 @@ public class AuthController implements Initializable {
   public void initialize(URL url, ResourceBundle resourceBundle) {
     this.loginField.setData(FXCollections.observableArrayList(UserService.getInstance().getAllUserNames()));
     this.loginField.getListview().setMinWidth(180);
-//    this.loginField.getTextbox().setOnMouseClicked(new EventHandler<MouseEvent>() {
-//      @Override
-//      public void handle(MouseEvent mouseEvent) {
-//        if (mouseEvent.getClickCount() == 2)
-//          ((AutoFillTextBoxSkin) loginField.getSkin()).showPopupWithAllItems();
-//      }
-//    });
+    this.loginField.textProperty().addListener(new ChangeListener<String>() {
+      @Override
+      public void changed(ObservableValue<? extends String> observableValue, String s, String s2) {
+        loginField.getTextbox().getStyleClass().remove(ERROR_VALIDATION_STYLE_CLASS);
+      }
+    });
+    this.loginField.addSelectionListener(new ChangeListener() {
+      @Override
+      public void changed(ObservableValue observableValue, Object o, Object o2) {
+        passwordField.requestFocus();
+      }
+    });
+    this.passwordField.textProperty().addListener(new ChangeListener<String>() {
+      @Override
+      public void changed(ObservableValue<? extends String> observableValue, String s, String s2) {
+        passwordField.getStyleClass().remove(ERROR_VALIDATION_STYLE_CLASS);
+      }
+    });
+    this.passwordField.focusedProperty().addListener(new ChangeListener<Boolean>() {
+      @Override
+      public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean aBoolean2) {
+        String username = loginField.getText();
+        String password = UserService.getInstance().getPasswordByUser(username);
+        if (null != password && !password.isEmpty()) {
+          rememberMeCheckBox.fire();
+          passwordField.setText(password);
+          passwordField.positionCaret(password.length()-1);
+        }
+      }
+    });
   }
 
   public void login(final ActionEvent event) {
@@ -57,32 +86,38 @@ public class AuthController implements Initializable {
       public void run() {
         String login = loginField.getText();
         String password = passwordField.getText();
+
+        // validation inputs
         if (null == login || login.isEmpty() || null == password || password.isEmpty()) {
-          Dialogs.showErrorDialog(dialogStage,
-              "Login and password are required fields",
-              "Error Dialog", "Unable to log in");   // TODO: add validation on fields
+          if (null == login || login.isEmpty()) {
+            loginField.getTextbox().getStyleClass().add(ERROR_VALIDATION_STYLE_CLASS);
+            loginField.getTextbox().requestFocus();
+          } else {
+            passwordField.requestFocus();
+          }
+          if (null == password || password.isEmpty())
+            passwordField.getStyleClass().add(ERROR_VALIDATION_STYLE_CLASS);
           return;
         }
 
         User user = new User(login, password);
-        try{
-          LoginService.logIn(CLIENT_ID, "audio,status,friends,wall,video", user);
+        try {
+          LoginService.logIn(CLIENT_ID, VK_PERMISSIONS, user);
 
           // TODO: move this block to DB
           Utils.addUserEmailToFile(user.getLogin());
-          if(rememberMeCheckBox.isSelected())
+          if (rememberMeCheckBox.isSelected())
             Utils.savePasswordForUser(user);
           Settings settings = Utils.getSettingsForUser(user);
           user.setSettings(settings);
 
           new VKPlayer().start(((Stage) ((Control) event.getSource()).getScene().getWindow()));
-//          VkPlayerForm.getInstance().createPlayerWindow(user);
-        }catch (AuthorizationException authEx) {
+        } catch (AuthorizationException authEx) {
           System.out.println(authEx.getMessage());
           Dialogs.showErrorDialog(dialogStage,
-              "Please check that you have entered your login and password correctly \n" +
-              "or check internet connection",
-              "Error Dialog", "Unable to log in");
+              "Please check that you have entered your login and password correctly " +
+                  "or check internet connection",
+              "Unable to log in", "Error");
         } catch (Exception e) {
           e.printStackTrace();
         }
@@ -117,5 +152,10 @@ public class AuthController implements Initializable {
   public void showUsersPopup(MouseEvent mouseEvent) {
     if (mouseEvent.getClickCount() == 2)
       ((AutoFillTextBoxSkin) loginField.getSkin()).showPopupWithAllItems();
+  }
+
+  public void loginOnEnter(KeyEvent keyEvent) {
+    if (KeyCode.ENTER.equals(keyEvent.getCode()))
+      loginButton.fire();
   }
 }

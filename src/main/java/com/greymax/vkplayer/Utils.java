@@ -110,7 +110,7 @@ public class Utils {
       File f = new File(getAppFolderInSystem() + "/" + SETTINGS_FILE);
       Wini ini = new Wini(f);
       String password = ini.get("PASSWORDS", login);
-      if (null != password && !"".equals(password)) {
+      if (null != password && !password.isEmpty()) {
         BasicTextEncryptor encryptor = new BasicTextEncryptor();
         encryptor.setPassword(PASSWORD_ENCRIPTION);
         result = encryptor.decrypt(password);

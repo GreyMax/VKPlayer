@@ -119,11 +119,21 @@ public class AutoFillTextBoxSkin<T> extends SkinBase<AutoFillTextBox<T>, AutoFil
     Object i = this.listview.getSelectionModel().getSelectedItem();
     if (i != null) {
       hidePopup();
+      String oldValue = this.textbox.getText();
       this.textbox.setText(this.listview.getSelectionModel().getSelectedItem().toString());
       this.textbox.requestFocus();
       this.textbox.requestLayout();
       this.textbox.end();
       this.temporaryTxt = "";
+      String newValue = this.textbox.getText();
+      fireSelectionEvent(oldValue, newValue);
+    }
+  }
+
+  private void fireSelectionEvent(Object oldValue, Object newValue) {
+    for (int i = 0; i < this.autofillTextbox.getSelectionListeners().size(); i++) {
+      ChangeListener listener = (ChangeListener) this.autofillTextbox.getSelectionListeners().get(i);
+      listener.changed(null, oldValue, newValue);
     }
   }
 

@@ -15,3 +15,7 @@
 .autofill-text {
   -fx-skin: "com.greymax.vkplayer.ui.components.autocomplete.AutoFillTextBoxSkin";
 }
+
+.not-valid {
+  -fx-background-color: orangered,linear-gradient(to bottom, derive(orangered,60%) 5%,derive(orangered,90%) 40%);
+}

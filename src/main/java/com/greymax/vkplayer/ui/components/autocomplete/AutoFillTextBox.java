@@ -1,5 +1,6 @@
 package com.greymax.vkplayer.ui.components.autocomplete;
 
+import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -9,6 +10,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
+import java.util.LinkedList;
+
 public class AutoFillTextBox<T> extends Control
     implements AutoFillTextBoxFactory<T> {
 
@@ -17,6 +20,7 @@ public class AutoFillTextBox<T> extends Control
   private ObservableList<T> data = FXCollections.observableArrayList();
   private boolean filterMode;
   private int limit;
+  private LinkedList<ChangeListener> selectionListeners;
 
   public AutoFillTextBox(ObservableList<T> data) {
     init();
@@ -33,6 +37,7 @@ public class AutoFillTextBox<T> extends Control
     this.listview = new ListView();
     this.limit = 10;
     this.filterMode = false;
+    this.selectionListeners = new LinkedList<>();
 
     listen();
   }
@@ -105,6 +110,23 @@ public class AutoFillTextBox<T> extends Control
   public void setMaxSize(double d, double d1) {
     super.setMaxSize(d, d1);
     this.textbox.setMaxSize(d, d1);
+  }
+
+  public StringProperty textProperty() {
+    return this.textbox.textProperty();
+  }
+
+  /**
+   * Adds a listener that notifies when a selection has occured
+   * @param listener ChangeListener to use
+   */
+  public void addSelectionListener(ChangeListener listener) {
+    if (listener != null)
+      selectionListeners.add(listener);
+  }
+
+  public LinkedList<ChangeListener> getSelectionListeners() {
+    return selectionListeners;
   }
 
   private void listen() {

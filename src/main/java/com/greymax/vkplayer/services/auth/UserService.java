@@ -40,4 +40,9 @@ public class UserService {
 
     return Utils.getPossibleLogin();
   }
+
+  public String getPasswordByUser(String username) {
+
+    return Utils.getPasswordForUser(username);
+  }
 }
