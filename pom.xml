@@ -197,6 +197,20 @@
       <scope>system</scope>
     </dependency>
 
+    <!--Hibernate-->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-core</artifactId>
+      <version>4.2.0.Final</version>
+    </dependency>
+
+    <!-- SQLite JDBC library -->
+    <dependency>
+      <groupId>org.xerial</groupId>
+      <artifactId>sqlite-jdbc</artifactId>
+      <version>3.7.2</version>
+    </dependency>
+
     <!--json-->
     <dependency>
       <groupId>org.json</groupId>

@@ -1,42 +1,45 @@
 package com.greymax.vkplayer.objects;
 
-import org.apache.log4j.Logger;
-import org.json.JSONObject;
-
 public class User {
 
-  private static Logger logger = Logger.getLogger(User.class);
+  public static final String USER_FIST_NAME_PARAMETER = "first_name";
+  public static final String USER_LAST_NAME_PARAMETER = "last_name";
+  public static final String USER_ID_PARAMETER = "uid";
 
-  private static final String USER_FIST_NAME_PARAMETER = "first_name";
-  private static final String USER_LAST_NAME_PARAMETER = "last_name";
-  private static final String USER_ID_PARAMETER = "uid";
-
-  private String login;
+  private Long id;
+  private Long uid;
+  private String firstName;
+  private String lastName;
+  private String username;
   private String password;
   private String status;
   private Token token;
   private Settings settings;
-  private String firstName;
-  private String lastName;
-  private Long uid;
+
+  public User() {
+    // emptiness
+  }
 
   public User(String usr, String pass) {
-    this.login = usr;
+    this();
+    this.username = usr;
     this.password = pass;
   }
 
-  public User(JSONObject userJson) {
-    try {
-      this.uid = userJson.getLong(USER_ID_PARAMETER);
-      this.firstName = userJson.getString(USER_FIST_NAME_PARAMETER);
-      this.lastName = userJson.getString(USER_LAST_NAME_PARAMETER);
-    } catch (Exception e) {
-      logger.error("Can not create user:", e);
-    }
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
   }
 
   public Long getUid() {
     return uid;
+  }
+
+  public void setUid(Long uid) {
+    this.uid = uid;
   }
 
   public String getFirstName() {
@@ -55,28 +58,12 @@ public class User {
     this.lastName = lastName;
   }
 
-  public String getStatus() {
-    return status;
+  public String getUsername() {
+    return username;
   }
 
-  public void setStatus(String status) {
-    this.status = status;
-  }
-
-  public Settings getSettings() {
-    return settings;
-  }
-
-  public void setSettings(Settings settings) {
-    this.settings = settings;
-  }
-
-  public Token getToken() {
-    return token;
-  }
-
-  public void setToken(Token token) {
-    this.token = token;
+  public void setUsername(String username) {
+    this.username = username;
   }
 
   public String getPassword() {
@@ -87,21 +74,28 @@ public class User {
     this.password = password;
   }
 
-  public String getLogin() {
-    return login;
+  public String getStatus() {
+    return status;
   }
 
-  public void setLogin(String login) {
-    this.login = login;
+  public void setStatus(String status) {
+    this.status = status;
   }
 
-  public void populateInfo(JSONObject info) {
-    try {
-      setFirstName((String) info.get(USER_FIST_NAME_PARAMETER));
-      setLastName((String) info.get(USER_LAST_NAME_PARAMETER));
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+  public Token getToken() {
+    return token;
+  }
+
+  public void setToken(Token token) {
+    this.token = token;
+  }
+
+  public Settings getSettings() {
+    return settings;
+  }
+
+  public void setSettings(Settings settings) {
+    this.settings = settings;
   }
 
   public String toString() {

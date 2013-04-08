@@ -86,7 +86,7 @@ public class Utils {
       if (!f.exists())
         f.createNewFile();
       Wini ini = new Wini(f);
-      ini.put("PASSWORDS", user.getLogin(), password);
+      ini.put("PASSWORDS", user.getUsername(), password);
       ini.store();
     } catch (IOException e) {
       logger.error("Can not save password:", e);
@@ -162,7 +162,7 @@ public class Utils {
   }
 
   public static void saveSettingsForUser(User user) {
-    String PREFIX = user.getLogin();
+    String PREFIX = user.getUsername();
     Settings settings = user.getSettings();
     try {
       File f = new File(getAppFolderInSystem() + "/" + SETTINGS_FILE);
@@ -188,7 +188,7 @@ public class Utils {
 
   public static Settings getSettingsForUser(User user) {
     Settings settings = new Settings();
-    String PREFIX = user.getLogin();
+    String PREFIX = user.getUsername();
     try {
       File f = new File(getAppFolderInSystem() + "/" + SETTINGS_FILE);
       if (!f.exists())

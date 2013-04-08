@@ -47,6 +47,7 @@ public class AuthController implements Initializable {
   private double mousePositionX;
   private double mousePositionY;
   private User user;
+  private UserService userService = UserService.getInstance();
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -63,10 +64,11 @@ public class AuthController implements Initializable {
       public void changed(ObservableValue observableValue, Object o, Object o2) {
         passwordField.requestFocus();
         String username = loginField.getText();
-        String password = UserService.getInstance().getPasswordByUser(username);
-        if (null != password && !password.isEmpty()) {
+        User persistentUser = userService.getUserByUsername(username);
+        if (null != persistentUser) {
           rememberMeCheckBox.fire();
-          passwordField.setText(password);
+          passwordField.setText(persistentUser.getPassword());
+          passwordField.end();
         }
       }
     });
@@ -83,70 +85,71 @@ public class AuthController implements Initializable {
     spinner.start();
     loginButton.setDisable(true);
     new Thread(new Runnable() {
-        @Override
-        public void run() {
-            String login = loginField.getText();
-            String password = passwordField.getText();
+      @Override
+      public void run() {
+        String login = loginField.getText();
+        String password = passwordField.getText();
 
-            // validation inputs
-            if (null == login || login.isEmpty() || null == password || password.isEmpty()) {
-                if (null == login || login.isEmpty()) {
-                    loginField.getTextbox().getStyleClass().add(ERROR_VALIDATION_STYLE_CLASS);
-                    loginField.getTextbox().requestFocus();
-                } else {
-                    passwordField.requestFocus();
-                }
-                if (null == password || password.isEmpty())
-                    passwordField.getStyleClass().add(ERROR_VALIDATION_STYLE_CLASS);
+        // validation inputs
+        if (null == login || login.isEmpty() || null == password || password.isEmpty()) {
+          if (null == login || login.isEmpty()) {
+            loginField.getTextbox().getStyleClass().add(ERROR_VALIDATION_STYLE_CLASS);
+            loginField.getTextbox().requestFocus();
+          } else {
+            passwordField.requestFocus();
+          }
+          if (null == password || password.isEmpty())
+            passwordField.getStyleClass().add(ERROR_VALIDATION_STYLE_CLASS);
 
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        spinner.stop();
-                        loginButton.setDisable(false);
-                    }
-                });
-                return;
+          Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+              spinner.stop();
+              loginButton.setDisable(false);
             }
+          });
+          return;
+        }
 
-            user = new User(login, password);
-            try {
-                LoginService.logIn(CLIENT_ID, VK_PERMISSIONS, user);
+        user = new User(login, password);
+        try {
+          LoginService.logIn(CLIENT_ID, VK_PERMISSIONS, user);
 
-                // TODO: move this block to DB
-                Utils.addUserEmailToFile(user.getLogin());
-                if (rememberMeCheckBox.isSelected())
-                    Utils.savePasswordForUser(user);
-                Settings settings = Utils.getSettingsForUser(user);
-                user.setSettings(settings);
+          //TODO: add flag to remember password into User
+          if (rememberMeCheckBox.isSelected())
+            userService.createOrUpdateUser(user);
 
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            spinner.stop();
-                            loginButton.setDisable(false);
-                            new VKPlayer().start(((Stage) ((Control) event.getSource()).getScene().getWindow()));
-                        } catch (Exception ex) {
-                            ex.printStackTrace();
-                        }
-                    }
-                });
-            } catch (AuthorizationException authEx) {
-                System.out.println(authEx.getMessage());
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        spinner.stop();
-                        loginButton.setDisable(false);
-                        Dialogs.showErrorDialog(dialogStage,
-                            "Please check that you have entered your login and password correctly or check internet connection",
-                            "Unable to log in", "Error");
-                    }
-                });
+          //TODO: move to DB side
+          Settings settings = Utils.getSettingsForUser(user);
+          user.setSettings(settings);
+
+          Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+              try {
+                spinner.stop();
+                loginButton.setDisable(false);
+                new VKPlayer().start(((Stage) ((Control) event.getSource()).getScene().getWindow()));
+              } catch (Exception ex) {
+                ex.printStackTrace();
+              }
             }
-         }
-      }).start();
+          });
+        } catch (AuthorizationException authEx) {
+          System.out.println(authEx.getMessage());
+          Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+              spinner.stop();
+              loginButton.setDisable(false);
+              Dialogs.showErrorDialog(dialogStage,
+                  "Please check that you have entered your login and password correctly or check internet connection",
+                  "Unable to log in", "Error");
+            }
+          });
+        }
+      }
+    }).start();
   }
 
   public void exit(ActionEvent event) {
