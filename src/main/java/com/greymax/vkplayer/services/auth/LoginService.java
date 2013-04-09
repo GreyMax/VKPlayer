@@ -154,6 +154,7 @@ public class LoginService {
       User userInfo = UserService.getInstance().convertFromJson(info.getJSONObject(0));
       user.setFirstName(userInfo.getFirstName());
       user.setLastName(userInfo.getLastName());
+      UserService.getInstance().setLoggedUser(user);
     } catch (Exception e) {
       logger.error("Can not take user info:", e);
     }

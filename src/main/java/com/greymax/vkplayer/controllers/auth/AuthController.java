@@ -91,28 +91,10 @@ public class AuthController implements Initializable {
         String password = passwordField.getText();
 
         // validation inputs
-        if (null == login || login.isEmpty() || null == password || password.isEmpty()) {
-          if (null == login || login.isEmpty()) {
-            loginField.getTextbox().getStyleClass().add(ERROR_VALIDATION_STYLE_CLASS);
-            loginField.getTextbox().requestFocus();
-          } else {
-            passwordField.requestFocus();
-          }
-          if (null == password || password.isEmpty())
-            passwordField.getStyleClass().add(ERROR_VALIDATION_STYLE_CLASS);
+        if (!validate(login, password)) return;
 
-          Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-              spinner.stop();
-              loginButton.setDisable(false);
-            }
-          });
-          return;
-        }
-
-        user = new User(login, password);
         try {
+          user = new User(login, password);
           LoginService.logIn(CLIENT_ID, VK_PERMISSIONS, user);
 
           //TODO: add flag to remember password into User
@@ -150,6 +132,29 @@ public class AuthController implements Initializable {
         }
       }
     }).start();
+  }
+
+  private boolean validate(String login, String password) {
+    if (null == login || login.isEmpty() || null == password || password.isEmpty()) {
+      if (null == login || login.isEmpty()) {
+        loginField.getTextbox().getStyleClass().add(ERROR_VALIDATION_STYLE_CLASS);
+        loginField.getTextbox().requestFocus();
+      } else {
+        passwordField.requestFocus();
+      }
+      if (null == password || password.isEmpty())
+        passwordField.getStyleClass().add(ERROR_VALIDATION_STYLE_CLASS);
+
+      Platform.runLater(new Runnable() {
+          @Override
+          public void run() {
+            spinner.stop();
+            loginButton.setDisable(false);
+          }
+      });
+      return false;
+    }
+    return true;
   }
 
   public void exit(ActionEvent event) {

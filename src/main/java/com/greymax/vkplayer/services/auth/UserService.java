@@ -1,12 +1,15 @@
 package com.greymax.vkplayer.services.auth;
 
+import com.greymax.vkplayer.db.main.HibernateUtil;
 import com.greymax.vkplayer.db.main.UserDao;
+import com.greymax.vkplayer.db.main.annotation.Transactional;
 import com.greymax.vkplayer.objects.User;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 
 import java.util.Collection;
 
+//TODO: think about implement Transactional annotation
 public class UserService {
 
   private static Logger logger = Logger.getLogger(User.class);
@@ -32,19 +35,28 @@ public class UserService {
   }
 
   public Collection<User> getAllUsers() {
+    HibernateUtil.openTransaction();
+    Collection<User> result = userDao.getAll();
+    HibernateUtil.commitTransaction();
 
-    return userDao.getAll();
+    return result;
   }
 
+  @Transactional
   public Collection<String> getAllUserNames() {
+    HibernateUtil.openTransaction();
+    Collection<String> result = userDao.getAllUsernames();
+    HibernateUtil.commitTransaction();
 
-    return userDao.getAllUsernames();
+    return result;
   }
 
   public User getUserByUsername(String username) {
+    HibernateUtil.openTransaction();
+    User result = userDao.getByUsername(username);
+    HibernateUtil.commitTransaction();
 
-//    return Utils.getPasswordForUser(username);
-    return userDao.getByUsername(username);
+    return result;
   }
 
   public User convertFromJson(JSONObject userJson) {
@@ -60,8 +72,8 @@ public class UserService {
     return result;
   }
 
-  //TODO: refactor and redesign
   public void createOrUpdateUser(User user) {
+    HibernateUtil.openTransaction();
     User persistentUser = userDao.getByUsername(user.getUsername());
     if (null == persistentUser)
       userDao.create(user);
@@ -71,5 +83,6 @@ public class UserService {
       persistentUser.setUid(user.getUid());
       userDao.update(persistentUser);
     }
+    HibernateUtil.commitTransaction();
   }
 }

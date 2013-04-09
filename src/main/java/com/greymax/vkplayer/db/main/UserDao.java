@@ -4,7 +4,9 @@ import com.greymax.vkplayer.objects.User;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class UserDao extends AbstractDao {
 

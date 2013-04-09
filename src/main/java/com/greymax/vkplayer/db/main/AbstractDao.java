@@ -4,6 +4,7 @@ package com.greymax.vkplayer.db.main;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 public abstract class AbstractDao<T> {
 
@@ -13,13 +14,8 @@ public abstract class AbstractDao<T> {
     entityClass = clazz;
   }
 
-  public SessionFactory getSessionFactory() {
-    return HibernateUtil.getSessionFactory();
-  }
-
   public Session getSession() {
-    SessionFactory sessionFactory = getSessionFactory();
-    return sessionFactory.openSession();
+    return HibernateUtil.getSession();
   }
 
   public Criteria createEntityCriteria() {
@@ -27,19 +23,14 @@ public abstract class AbstractDao<T> {
   }
 
   public T create(T object) {
-    Session session = getSession();
-    session.beginTransaction();
-    session.save(object);
-    session.getTransaction().commit();
-    return object;
+    return (T) getSession().save(object);
   }
 
-  //TODO: this is not work!!!
   public T update(T object) {
-    Session session = getSession();
-    session.beginTransaction();
-    session.update(object);
-    session.getTransaction().commit();
-    return object;
+    return (T) getSession().merge(object);
+  }
+
+  public void delete(T object) {
+    getSession().delete(object);
   }
 }
