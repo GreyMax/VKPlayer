@@ -3,8 +3,6 @@ package com.greymax.vkplayer.db.main;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 
 public abstract class AbstractDao<T> {
 

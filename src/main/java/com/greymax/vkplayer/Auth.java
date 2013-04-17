@@ -6,7 +6,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class Auth extends Application {
 
@@ -16,7 +15,7 @@ public class Auth extends Application {
     root.getStylesheets().add("css/auth/index.css");
     primaryStage.setTitle("Login form");
     primaryStage.setResizable(false);
-    primaryStage.initStyle(StageStyle.UNDECORATED);
+//    primaryStage.initStyle(StageStyle.UNDECORATED);
     primaryStage.getIcons().add(new Image("image/ico.png"));
     primaryStage.setScene(new Scene(root, 300, 210));
     primaryStage.show();

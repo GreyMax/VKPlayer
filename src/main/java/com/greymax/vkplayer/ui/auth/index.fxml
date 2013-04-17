@@ -9,42 +9,42 @@
 <BorderPane style="-fx-background-color: #51759c;" xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.greymax.vkplayer.controllers.auth.AuthController">
 
-  <top>
-    <ToolBar maxHeight="25.0" minHeight="25.0" onMouseDragged="#moveWindow" onMousePressed="#clickOnHeader"
-             prefHeight="25.0">
-      <BorderPane maxWidth="280.0" minWidth="280.0" prefWidth="280.0">
-        <left>
-          <Label>
-            <graphic>
-              <ImageView fitHeight="20.0" fitWidth="20.0">
-                <Image url="/image/ico.png" />
-              </ImageView>
-            </graphic>
-          </Label>
-        </left>
-        <right>
-          <HBox alignment="CENTER_RIGHT" spacing="3.0">
-            <children>
-              <Button maxHeight="20" maxWidth="20" minHeight="20" minWidth="20" focusTraversable="false" onAction="#minimize">
-                <graphic>
-                  <ImageView fitHeight="15" fitWidth="15">
-                    <Image url="/image/minimizeButton.png"/>
-                  </ImageView>
-                </graphic>
-              </Button>
-              <Button maxHeight="20" maxWidth="20" minHeight="20" minWidth="20" focusTraversable="false" onAction="#exit">
-                <graphic>
-                  <ImageView fitHeight="15" fitWidth="15">
-                    <Image url="/image/closeButton.png"/>
-                  </ImageView>
-                </graphic>
-              </Button>
-            </children>
-          </HBox>
-        </right>
-      </BorderPane>
-    </ToolBar>
-  </top>
+  <!--<top>-->
+    <!--<ToolBar maxHeight="25.0" minHeight="25.0" onMouseDragged="#moveWindow" onMousePressed="#clickOnHeader"-->
+             <!--prefHeight="25.0">-->
+      <!--<BorderPane maxWidth="280.0" minWidth="280.0" prefWidth="280.0">-->
+        <!--<left>-->
+          <!--<Label>-->
+            <!--<graphic>-->
+              <!--<ImageView fitHeight="20.0" fitWidth="20.0">-->
+                <!--<Image url="/image/ico.png" />-->
+              <!--</ImageView>-->
+            <!--</graphic>-->
+          <!--</Label>-->
+        <!--</left>-->
+        <!--<right>-->
+          <!--<HBox alignment="CENTER_RIGHT" spacing="3.0">-->
+            <!--<children>-->
+              <!--<Button maxHeight="20" maxWidth="20" minHeight="20" minWidth="20" focusTraversable="false" onAction="#minimize">-->
+                <!--<graphic>-->
+                  <!--<ImageView fitHeight="15" fitWidth="15">-->
+                    <!--<Image url="/image/minimizeButton.png"/>-->
+                  <!--</ImageView>-->
+                <!--</graphic>-->
+              <!--</Button>-->
+              <!--<Button maxHeight="20" maxWidth="20" minHeight="20" minWidth="20" focusTraversable="false" onAction="#exit">-->
+                <!--<graphic>-->
+                  <!--<ImageView fitHeight="15" fitWidth="15">-->
+                    <!--<Image url="/image/closeButton.png"/>-->
+                  <!--</ImageView>-->
+                <!--</graphic>-->
+              <!--</Button>-->
+            <!--</children>-->
+          <!--</HBox>-->
+        <!--</right>-->
+      <!--</BorderPane>-->
+    <!--</ToolBar>-->
+  <!--</top>-->
 
   <center>
     <GridPane alignment="CENTER" hgap="10.0" vgap="10.0">
@@ -57,7 +57,6 @@
       <CheckBox fx:id="rememberMeCheckBox" text="Remember me" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="3"/>
 
       <HBox alignment="CENTER_RIGHT" spacing="10.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4">
-        <!--<Canvas fx:id="spinner" width="24" height="24" visible="false" />-->
         <Spinner fx:id="spinner"/>
         <Button fx:id="loginButton" onAction="#login" styleClass="button" text="Sign In" />
       </HBox>
