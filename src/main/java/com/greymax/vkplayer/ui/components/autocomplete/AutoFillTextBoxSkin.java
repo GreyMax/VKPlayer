@@ -214,8 +214,8 @@ public class AutoFillTextBoxSkin<T> extends SkinBase<AutoFillTextBox<T>, AutoFil
     this.listview.impl_transformsChanged();
 
     this.popup.show(getWindow(),
-        getWindow().getX() + this.textbox.localToScene(0.0D, 0.0D).getX() + this.textbox.getScene().getX() - 5.0D,
-        getWindow().getY() + this.textbox.localToScene(0.0D, 0.0D).getY() + this.textbox.getScene().getY() + 18.0D);
+        getWindow().getX() + this.textbox.localToScene(0.0D, 0.0D).getX() + this.textbox.getScene().getX() - 1.0D,
+        getWindow().getY() + this.textbox.localToScene(0.0D, 0.0D).getY() + this.textbox.getScene().getY() + 20.0D);
 
     this.listview.getSelectionModel().clearSelection();
     this.listview.getFocusModel().focus(-1);
