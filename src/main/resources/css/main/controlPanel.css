@@ -1,6 +1,38 @@
-.round-button {
-  /*-fx-background-color: linear-gradient(#ff5400, #be1d00);*/
-  -fx-background-radius: 360;
-  -fx-background-insets: 0;
+.round-button-play {
+  -fx-background-radius: 36px;
+  -fx-border-radius: 36px;
+  -fx-border-insets: 1px;
+  -fx-border-color: white;
+  -fx-background-insets: 2;
+  -fx-text-fill: white;
+}
+.round-button-prev,
+.round-button-next {
+  -fx-background-radius: 24px;
+  -fx-border-radius: 24px;
+  -fx-border-insets: 1px;
+  -fx-border-color: white;
+  -fx-background-insets: 2;
+  -fx-text-fill: white;
+}
+.round-button-settings {
+  -fx-background-radius: 40px;
+  -fx-border-radius: 40px;
+  -fx-border-insets: 1px;
+  -fx-border-color: white;
+  -fx-background-insets: 2;
+  -fx-text-fill: white;
+}
+.settings-separator {
+  -fx-background-color: #e79423;
+  -fx-background-radius: 2;
+}
+.progress-time {
+  -fx-text-fill: white;
+}
+.progress-slider {
+
+}
+.song-title {
   -fx-text-fill: white;
 }

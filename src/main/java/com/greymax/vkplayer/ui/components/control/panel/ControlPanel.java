@@ -10,8 +10,9 @@ public class ControlPanel extends HBox {
 
   public ControlPanel() {
     try {
-      HBox root = FXMLLoader.load(getClass().getResource("../../../main/ControlPanel.fxml"));
+      HBox root = FXMLLoader.load(getClass().getResource("controlPanel.fxml"));
       root.setMaxWidth(Double.MAX_VALUE);
+      root.getStylesheets().addAll("css/main/controlPanel.css");
       HBox.setHgrow(root, Priority.ALWAYS);
       this.getChildren().addAll(root);
     } catch (IOException e) {
