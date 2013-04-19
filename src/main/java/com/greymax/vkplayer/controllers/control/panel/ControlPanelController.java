@@ -47,6 +47,7 @@ public class ControlPanelController implements Initializable {
     seekSlider.setMax(1);
   }
 
+  @FXML
   public void play(ActionEvent actionEvent) {
     ImageView imageView = new ImageView(new Image(getClass().getClassLoader().getResource("image/pause_icon.png").toExternalForm()));
     imageView.setFitHeight(20.0d);
@@ -54,11 +55,12 @@ public class ControlPanelController implements Initializable {
     playButton.setGraphic(imageView);
   }
 
+  @FXML
   public void repeat(ActionEvent actionEvent) {
     if (repeatButton.getStyleClass().contains("round-button-repeat-selected")) {
       repeatButton.getStyleClass().remove("round-button-repeat-selected");
       repeatButton.getStyleClass().add("round-button-repeat-selected1");
-      ImageView imageView = new ImageView(new Image(getClass().getClassLoader().getResource("image/repeat_icon_white_one.png").toExternalForm()));
+      ImageView imageView = new ImageView(new Image(getClass().getClassLoader().getResource("image/repeat_icon_one_inverse.png").toExternalForm()));
       imageView.setFitHeight(16.0d);
       imageView.setFitWidth(16.0d);
       repeatButton.setGraphic(imageView);
@@ -74,14 +76,17 @@ public class ControlPanelController implements Initializable {
       repeatButton.getStyleClass().add("round-button-repeat-selected");
   }
 
+  @FXML
   public void random(ActionEvent actionEvent) {
 
   }
 
+  @FXML
   public void mute(MouseEvent mouseEvent) {
     volumeSlider.setValue(0.0d);
   }
 
+  @FXML
   public void maxVolume(MouseEvent mouseEvent) {
     volumeSlider.setValue(100.0d);
   }

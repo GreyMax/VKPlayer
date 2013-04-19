@@ -1,12 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.greymax.vkplayer.ui.components.control.panel.ControlPanel?>
+<?import java.lang.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<StackPane xmlns:fx="http://javafx.com/fxml">
+
+<StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.greymax.vkplayer.controllers.main.MainController">
   <VBox alignment="TOP_CENTER">
     <ControlPanel style="-fx-background-color: #5A7FA7;" maxHeight="60.0" minHeight="60.0" prefHeight="60.0"/>
+    <SplitPane fx:id="splitPane" dividerPositions="0.3" focusTraversable="true" VBox.vgrow="ALWAYS">
+      <items>
+        <!--<AnchorPane fx:id="firstPane" minHeight="200.0" minWidth="150.0" maxWidth="1000" SplitPane.resizableWithParent="false">-->
+          <HBox minHeight="200.0" minWidth="150.0" SplitPane.resizableWithParent="false">
+            <VBox HBox.hgrow="ALWAYS" SplitPane.resizableWithParent="false">
+              <SplitPane dividerPositions="0.3" orientation="VERTICAL" focusTraversable="true" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
+                <items>
+                  <HBox>
+                    <ListView HBox.hgrow="ALWAYS">
+                    </ListView>
+                  </HBox>
+                  <HBox>
+                    <ListView HBox.hgrow="ALWAYS">
+                    </ListView>
+                  </HBox>
+                </items>
+              </SplitPane>
+            </VBox>
+          </HBox>
+        <!--</AnchorPane>-->
+        <AnchorPane fx:id="secondPane" minHeight="200.0" minWidth="200.0" />
+      </items>
+    </SplitPane>
   </VBox>
 </StackPane>

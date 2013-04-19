@@ -37,7 +37,7 @@ public class AutoFillTextBox<T> extends Control
     this.listview = new ListView();
     this.limit = 10;
     this.filterMode = false;
-    this.selectionListeners = new LinkedList<>();
+    this.selectionListeners = new LinkedList();
 
     listen();
   }

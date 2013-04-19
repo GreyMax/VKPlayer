@@ -34,7 +34,7 @@ public class Spinner extends Canvas {
     }
 
     private void init(int spinnerSize, String spinnerStyle) {
-        images = new ArrayList<>();
+        images = new ArrayList();
         for (int i = 0; i < 12; i++)
             images.add(new Image(Spinner.class.getClassLoader().getResourceAsStream(
                 String.format(SPINNER_URL_PATTERN, i+1, spinnerSize, spinnerStyle))));
