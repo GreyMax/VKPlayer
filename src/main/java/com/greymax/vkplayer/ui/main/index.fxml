@@ -1,35 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.greymax.vkplayer.ui.components.control.panel.ControlPanel?>
-<?import java.lang.*?>
+<?import com.greymax.vkplayer.ui.components.playlist.Playlist?>
+<?import com.greymax.vkplayer.ui.components.searchbox.SearchBox?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.collections.ObservableList?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-
+<?import javafx.scene.text.Text?>
 <StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.greymax.vkplayer.controllers.main.MainController">
   <VBox alignment="TOP_CENTER">
     <ControlPanel style="-fx-background-color: #5A7FA7;" maxHeight="60.0" minHeight="60.0" prefHeight="60.0"/>
-    <SplitPane fx:id="splitPane" dividerPositions="0.3" focusTraversable="true" VBox.vgrow="ALWAYS">
+    <SplitPane fx:id="splitPane" dividerPositions="0.3" focusTraversable="true" VBox.vgrow="ALWAYS" style="-fx-background-color: #d1d1d1">
       <items>
-        <!--<AnchorPane fx:id="firstPane" minHeight="200.0" minWidth="150.0" maxWidth="1000" SplitPane.resizableWithParent="false">-->
-          <HBox minHeight="200.0" minWidth="150.0" SplitPane.resizableWithParent="false">
-            <VBox HBox.hgrow="ALWAYS" SplitPane.resizableWithParent="false">
-              <SplitPane dividerPositions="0.3" orientation="VERTICAL" focusTraversable="true" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
-                <items>
-                  <HBox>
-                    <ListView HBox.hgrow="ALWAYS">
-                    </ListView>
-                  </HBox>
-                  <HBox>
-                    <ListView HBox.hgrow="ALWAYS">
-                    </ListView>
-                  </HBox>
-                </items>
-              </SplitPane>
-            </VBox>
-          </HBox>
-        <!--</AnchorPane>-->
+
+        <!-- Playlists & Friends -->
+        <HBox minHeight="200.0" minWidth="150.0" SplitPane.resizableWithParent="false">
+          <VBox HBox.hgrow="ALWAYS" SplitPane.resizableWithParent="false">
+            <SplitPane dividerPositions="0.4" focusTraversable="true" orientation="VERTICAL" VBox.vgrow="ALWAYS" style="-fx-background-color: #d1d1d1;">
+              <items>
+                <!-- Playlists -->
+                <HBox SplitPane.resizableWithParent="false" style="-fx-background-color: transparent;">
+                  <VBox HBox.hgrow="ALWAYS" style="-fx-background-color: transparent;">
+                    <HBox spacing="3.0" VBox.vgrow="NEVER" style="-fx-background-color: transparent;">
+                      <VBox HBox.hgrow="ALWAYS" style="-fx-background-color: transparent;">
+                        <padding>
+                          <Insets left="3"/>
+                        </padding>
+                        <children>
+                          <Text fx:id="playlistTitle" styleClass="playlist-title" text="PLAYLISTS" style="-fx-background-color: transparent"/>
+                        </children>
+                      </VBox>
+                      <Button fx:id="addPlaylistButton" styleClass="playlist-add" onAction="#addPlaylist"
+                              minWidth="16" maxWidth="16" prefWidth="16" minHeight="16" maxHeight="16" prefHeight="16"
+                          />
+                    </HBox>
+                    <HBox VBox.vgrow="ALWAYS">
+                      <ListView fx:id="playlistItems" HBox.hgrow="ALWAYS" focusTraversable="false">
+                        <items>
+                          <FXCollections fx:factory="observableArrayList">
+                            <Playlist playlistName="My Music" type="MY_AUDIO" VBox.vgrow="NEVER" />
+                            <Playlist playlistName="Suggested Music" type="SUGGESTED" VBox.vgrow="NEVER" />
+                          </FXCollections>
+                        </items>
+                      </ListView>
+                    </HBox>
+                  </VBox>
+                </HBox>
+
+                <!-- Friends -->
+                <HBox>
+                  <VBox HBox.hgrow="ALWAYS">
+                    <HBox VBox.vgrow="NEVER">
+                      <VBox HBox.hgrow="ALWAYS" spacing="3">
+                        <padding>
+                          <Insets left="3"/>
+                        </padding>
+                        <children>
+                          <Text fx:id="friendsTitle" styleClass="friends-title" text="FRIENDS" style="-fx-background-color: transparent"/>
+                        </children>
+                      </VBox>
+                    </HBox>
+                    <HBox VBox.vgrow="NEVER">
+                      <!--<TextField styleClass="search" fx:id="searchFriendField" HBox.hgrow="ALWAYS" text="Search friend" minHeight="20"/>-->
+                      <SearchBox HBox.hgrow="ALWAYS"/>
+                    </HBox>
+                    <HBox VBox.vgrow="ALWAYS">
+                      <ListView HBox.hgrow="ALWAYS"/>
+                    </HBox>
+                  </VBox>
+                </HBox>
+              </items>
+            </SplitPane>
+          </VBox>
+        </HBox>
+
+        <!-- Songs -->
         <AnchorPane fx:id="secondPane" minHeight="200.0" minWidth="200.0" />
       </items>
     </SplitPane>

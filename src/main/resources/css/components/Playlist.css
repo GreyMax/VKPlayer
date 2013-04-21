@@ -1,0 +1,15 @@
+.playlist-refresh-button {
+  -fx-background-color: null;
+  -fx-background-image: url("../../image/reload.png");
+  -fx-background-size: 12;
+  -fx-background-repeat: no-repeat;
+}
+.playlist-remove-button {
+  -fx-background-color: null;
+  -fx-background-image: url("../../image/delete.png");
+  -fx-background-size: 12;
+  -fx-background-repeat: no-repeat;
+}
+.playlist-name {
+  /*-fx-font-weight: bold;*/
+}
