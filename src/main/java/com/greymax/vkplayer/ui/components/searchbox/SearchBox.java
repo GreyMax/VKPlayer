@@ -1,17 +1,19 @@
 package com.greymax.vkplayer.ui.components.searchbox;
 
+import com.greymax.vkplayer.ui.components.autocomplete.AutoFillTextBox;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
-import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 
 public class SearchBox extends Region {
 
-  private TextField textBox;
+  private AutoFillTextBox textBox;
   private Button clearButton;
 
   public SearchBox() {
@@ -19,16 +21,18 @@ public class SearchBox extends Region {
     getStyleClass().add("search-box");
     setMinHeight(24);
     setPrefSize(200, 24);
-    setMaxSize(Control.USE_PREF_SIZE, Control.USE_PREF_SIZE);
-    textBox = new TextField();
-    textBox.setPromptText("Search");
+//    setMaxSize(Control.USE_PREF_SIZE, Control.USE_PREF_SIZE);
+    textBox = new AutoFillTextBox();
+    HBox.setHgrow(textBox.getTextbox(), Priority.ALWAYS);
+    textBox.getTextbox().getStyleClass().add("search-text-field");
+    textBox.getTextbox().setPromptText("Search");
     clearButton = new Button();
     clearButton.setVisible(false);
     getChildren().addAll(textBox, clearButton);
     clearButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override public void handle(ActionEvent actionEvent) {
-        textBox.setText("");
-        textBox.requestFocus();
+        textBox.getTextbox().setText("");
+        textBox.getTextbox().requestFocus();
       }
     });
     textBox.textProperty().addListener(new ChangeListener<String>() {

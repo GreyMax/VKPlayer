@@ -37,7 +37,10 @@
     -fx-background-repeat: no-repeat;
 }
 */
-.search-box .text-field {
+.autofill-text {
+    -fx-skin: "com.greymax.vkplayer.ui.components.autocomplete.AutoFillTextBoxSkin";
+}
+.search-text-field {
     -fx-background-color: white;
     -fx-background-insets: 1;
     -fx-background-radius: 15;

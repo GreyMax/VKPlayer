@@ -63,7 +63,6 @@
                       </VBox>
                     </HBox>
                     <HBox VBox.vgrow="NEVER">
-                      <!--<TextField styleClass="search" fx:id="searchFriendField" HBox.hgrow="ALWAYS" text="Search friend" minHeight="20"/>-->
                       <SearchBox HBox.hgrow="ALWAYS"/>
                     </HBox>
                     <HBox VBox.vgrow="ALWAYS">
