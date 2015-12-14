@@ -1,17 +1,14 @@
 package com.greymax.vkplayer.ui.components.autocomplete;
 
-import com.sun.javafx.scene.control.skin.SkinBase;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.scene.Node;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.SkinBase;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -20,178 +17,200 @@ import javafx.stage.Popup;
 import javafx.stage.Window;
 import javafx.util.Callback;
 
-import java.util.Iterator;
-
-public class AutoFillTextBoxSkin<T> extends SkinBase<AutoFillTextBox<T>, AutoFillTextBoxBehavior<T>>
+public class AutoFillTextBoxSkin<T> extends SkinBase<AutoFillTextBox<T>>
     implements ChangeListener<String>, EventHandler {
 
-  private static final int TITLE_HEIGHT = 28;
-  private static final int WINDOW_BORDER = 8;
+  //Final Static variables for Window Insets
+  private final static int TITLE_HEIGHT = 28;
+
+  private final static int WINDOW_BORDER = 8;
+
+  //This is listview for showing the matched words
   private ListView listview;
+
+  //This is Textbox where user types
   private TextField textbox;
+
+  //This is the main Control of AutoFillTextBox
   private AutoFillTextBox autofillTextbox;
+
+  //This is the ObservableData where the matching words are saved
   private ObservableList data;
+
+  //This is the Popup where listview is embedded.
   private Popup popup;
-  private String temporaryTxt = "";
 
   public Window getWindow() {
-    return this.autofillTextbox.getScene().getWindow();
+    return autofillTextbox.getScene().getWindow();
   }
 
+  private String temporaryTxt = "";
+
   public AutoFillTextBoxSkin(AutoFillTextBox text) {
-    super(text, new AutoFillTextBoxBehavior(text));
+    super(text);
 
-    this.autofillTextbox = text;
+    //variable Assignment
+    autofillTextbox = text;
 
-    this.listview = text.getListview();
+    //listview for autofill textbox
+    listview = text.getListview();
     if (text.getFilterMode()) {
-      this.listview.setItems(text.getData());
+      // listview.getItems().clear();
+      //listview.getItems().addAll(text.getData());
+      listview.setItems(text.getData());
     }
-    this.listview.itemsProperty().addListener(new ChangeListener() {
-      public void changed(ObservableValue ov, Object t, Object t1) {
-        if ((AutoFillTextBoxSkin.this.listview.getItems().size() > 0) && (AutoFillTextBoxSkin.this.listview.getItems() != null)) {
-          AutoFillTextBoxSkin.this.showPopup();
-        } else {
-          AutoFillTextBoxSkin.this.hidePopup();
-        }
+    listview.itemsProperty().addListener((ov, t, t1) -> {
+      if (listview.getItems().size() > 0 && listview.getItems() != null) {
+        showPopup();
+      } // Hiding popup when no matches found
+      else {
+        hidePopup();
       }
     });
-    this.listview.setOnMouseReleased(this);
-    this.listview.setOnKeyReleased(this);
-
-    this.listview.setCellFactory(new Callback() {
-
+    listview.setOnMouseReleased(this);
+    listview.setOnKeyReleased(this);
+    //This cell factory helps to know which cell has been selected so that
+    //when ever any cell is selected the textbox rawText must be changed
+    listview.setCellFactory(new Callback<ListView<T>, ListCell<T>>() {
       @Override
-      public Object call(Object o) {
-
+      public ListCell<T> call(ListView<T> p) {
+        //A simple ListCell containing only Label
         final ListCell cell = new ListCell() {
-          public void updateItem(Object item, boolean empty) {
+          @Override
+          public void updateItem(Object item,
+                                 boolean empty) {
             super.updateItem(item, empty);
-            if (item != null)
+            if (item != null) {
               setText(item.toString());
-          }
-        };
-        cell.focusedProperty().addListener(new InvalidationListener() {
-          public void invalidated(Observable ove) {
-            ObservableValue ov = (ObservableValue) ove;
-            if ((cell.getItem() != null) && (cell.isFocused())) {
-              String prev = null;
-
-              if (AutoFillTextBoxSkin.this.temporaryTxt.length() <= 0) {
-                if (AutoFillTextBoxSkin.this.listview.getItems().size() != AutoFillTextBoxSkin.this.data.size()) {
-                  AutoFillTextBoxSkin.this.temporaryTxt = AutoFillTextBoxSkin.this.textbox.getText();
-                }
-              }
-              prev = AutoFillTextBoxSkin.this.temporaryTxt;
-              AutoFillTextBoxSkin.this.textbox.textProperty().removeListener(AutoFillTextBoxSkin.this);
-
-              AutoFillTextBoxSkin.this.textbox.textProperty().setValue(cell.getItem().toString());
-
-              AutoFillTextBoxSkin.this.textbox.textProperty().addListener(AutoFillTextBoxSkin.this);
-              AutoFillTextBoxSkin.this.textbox.selectRange(prev.length(), cell.getItem().toString().length());
             }
           }
+
+        };
+        //A listener to know which cell was selected so that the textbox
+        //we can set the rawTextProperty of textbox
+
+        cell.focusedProperty().addListener(ove -> {
+          ObservableValue<Boolean> ov = (ObservableValue<Boolean>) ove;
+          if (cell.getItem() != null && cell.isFocused()) {
+            //here we are using 'temporaryTxt' as temporary saving text
+            //If temporaryTxt length is 0 then assign with current rawText()
+            String prev = null;
+
+            //first check ...(either texmporaryTxt is empty char or not)
+            if (temporaryTxt.length() <= 0) {
+              //second check...
+              if (listview.getItems().size() != data.size()) {
+                temporaryTxt = textbox.getText();
+              }
+            }
+
+            prev = temporaryTxt;
+            textbox.textProperty().removeListener(AutoFillTextBoxSkin.this);
+            textbox.textProperty().setValue(cell.getItem().toString());
+            textbox.textProperty().addListener(AutoFillTextBoxSkin.this);
+            textbox.selectRange(prev.length(), cell.getItem().toString().length());
+          }
         });
+
         return cell;
       }
     });
-    this.textbox = text.getTextbox();
 
-    this.textbox.setOnKeyPressed(this);
-    this.textbox.textProperty().addListener(this);
+    //main textbox
+    textbox = text.getTextbox();
+    textbox.setOnKeyPressed(this);
+    textbox.textProperty().addListener(this);
 
-    this.textbox.focusedProperty().addListener(new ChangeListener() {
-      public void changed(ObservableValue ov, Object t, Object t1) {
-        AutoFillTextBoxSkin.this.textbox.end();
-      }
-    });
-    this.popup = new Popup();
-    this.popup.setAutoHide(true);
-    this.popup.getContent().add(this.listview);
+    textbox.focusedProperty().addListener((ov, t, t1) -> { textbox.end(); });
 
-    this.data = text.getData();
-    FXCollections.sort(this.data);
+    //popup
+    popup = new Popup();
+    popup.setAutoHide(true);
+    popup.getContent().add(listview);
 
-    getChildren().addAll(new Node[]{this.textbox});
+    //list data and sorted ordered
+    data = text.getData();
+    FXCollections.sort(data);
+
+    //Adding textbox in this control Children
+    getChildren().addAll(textbox);
   }
 
+  /**
+   * ********************************************************
+   * Selects the current Selected Item from the list and the content of that
+   * selected Item is set to textbox.
+   * ********************************************************
+   */
   public void selectList() {
-    Object i = this.listview.getSelectionModel().getSelectedItem();
+    Object i = listview.getSelectionModel().getSelectedItem();
     if (i != null) {
+      textbox.setText(listview.getSelectionModel().getSelectedItem().toString());
+      listview.getItems().clear();
+      textbox.requestFocus();
+      textbox.requestLayout();
+      textbox.end();
+      temporaryTxt = "";
       hidePopup();
-      String oldValue = this.textbox.getText();
-      this.textbox.setText(this.listview.getSelectionModel().getSelectedItem().toString());
-      this.textbox.requestFocus();
-      this.textbox.requestLayout();
-      this.textbox.end();
-      this.temporaryTxt = "";
-      String newValue = this.textbox.getText();
-      fireSelectionEvent(oldValue, newValue);
     }
   }
 
-  private void fireSelectionEvent(Object oldValue, Object newValue) {
-    for (int i = 0; i < this.autofillTextbox.getSelectionListeners().size(); i++) {
-      ChangeListener listener = (ChangeListener) this.autofillTextbox.getSelectionListeners().get(i);
-      listener.changed(null, oldValue, newValue);
-    }
-  }
-
+  /**
+   * ****************************************************
+   * This is the main event handler which handles all the event of the
+   * listview and textbox
+   * <p>
+   *
+   * @param evt ****************************************************
+   */
+  @Override
   public void handle(Event evt) {
+
+    /**
+     * ******************************
+     * EVENT HANDLING FOR 'TextBox' ******************************
+     */
     if (evt.getEventType() == KeyEvent.KEY_PRESSED) {
+            /* --------------------------------
+             * - KeyEvent Handling for Textbox -
+             * -------------------------------- */
       KeyEvent t = (KeyEvent) evt;
-      if (t.getSource() == this.textbox) {
+      if (t.getSource() == textbox) {
+        //WHEN USER PRESS DOWN ARROW KEY FOCUS TRANSFER TO LISTVIEW
         if (t.getCode() == KeyCode.DOWN) {
-          if (this.popup.isShowing()) {
-            this.listview.requestFocus();
-            this.listview.getSelectionModel().select(0);
+          if (popup.isShowing()) {
+            listview.requestFocus();
+            listview.getSelectionModel().select(0);
+          }
+        }
+
+      }
+    } /**
+     * ******************************
+     * EVENT HANDLING FOR 'LISTVIEW' ******************************
+     */
+    else if (evt.getEventType() == KeyEvent.KEY_RELEASED) {
+            /* ---------------------------------
+             * - KeyEvent Handling for ListView -
+             * ---------------------------------- */
+      KeyEvent t = (KeyEvent) evt;
+      if (t.getSource() == listview) {
+        if (t.getCode() == KeyCode.ENTER) {
+          selectList();
+        } else if (t.getCode() == KeyCode.UP) {
+          if (listview.getSelectionModel().getSelectedIndex() == 0) {
+            textbox.requestFocus();
           }
         }
       }
-    } else if (evt.getEventType() == KeyEvent.KEY_RELEASED) {
-      KeyEvent t = (KeyEvent) evt;
-      if (t.getSource() == this.listview) {
-        if (t.getCode() == KeyCode.ENTER) {
-          selectList();
-        } else if ((t.getCode() == KeyCode.UP) &&
-            (this.listview.getSelectionModel().getSelectedIndex() == 0)) {
-          this.textbox.requestFocus();
-        }
-
-      }
-
     } else if (evt.getEventType() == MouseEvent.MOUSE_RELEASED) {
-      if (evt.getSource() == this.listview)
+            /* -----------------------------------
+             * - MouseEvent Handling for Listview -
+             * ------------------------------------ */
+      if (evt.getSource() == listview) {
         selectList();
+      }
     }
-  }
-
-  protected double computeMaxHeight(double width) {
-    return Math.max(22.0D, this.textbox.getHeight());
-  }
-
-  public void setPrefSize(double d, double d1) {
-    super.setPrefSize(d, d1);
-  }
-
-  protected double computePrefHeight(double width) {
-    return Math.max(22.0D, this.textbox.getPrefHeight());
-  }
-
-  protected double computeMinHeight(double width) {
-    return Math.max(22.0D, this.textbox.getPrefHeight());
-  }
-
-  protected double computePrefWidth(double height) {
-    return Math.max(100.0D, this.textbox.getPrefWidth());
-  }
-
-  protected double computeMaxWidth(double height) {
-    return Math.max(100.0D, this.textbox.getPrefWidth());
-  }
-
-  protected double computeMinWidth(double height) {
-    return Math.max(100.0D, this.textbox.getPrefWidth());
   }
 
   public void showPopupWithAllItems() {
@@ -199,71 +218,89 @@ public class AutoFillTextBoxSkin<T> extends SkinBase<AutoFillTextBox<T>, AutoFil
     showPopup();
   }
 
+  /**
+   * A Popup containing Listview is trigged from this function This function
+   * automatically resize it's height and width according to the width of
+   * textbox and item's cell height
+   */
   public void showPopup() {
-    if (null == this.listview.getItems() || this.listview.getItems().size() == 0)
-      return;
+    listview.setPrefWidth(textbox.getWidth());
 
-    this.listview.setPrefWidth(this.textbox.getWidth());
-
-    if (this.listview.getItems().size() > 6)
-      this.listview.setPrefHeight(144.0D);
-    else {
-      this.listview.setPrefHeight(this.listview.getItems().size() * 24);
+    if (listview.getItems().size() > 6) {
+      listview.setPrefHeight((6 * 24));
+    } else {
+      listview.setPrefHeight((listview.getItems().size() * 24));
     }
-    this.listview.impl_updatePG();
-    this.listview.impl_transformsChanged();
 
-    this.popup.show(getWindow(),
-        getWindow().getX() + this.textbox.localToScene(0.0D, 0.0D).getX() + this.textbox.getScene().getX() - 1.0D,
-        getWindow().getY() + this.textbox.localToScene(0.0D, 0.0D).getY() + this.textbox.getScene().getY() + 20.0D);
+    //CALCULATING THE X AND Y POSITION FOR POPUP
+    //Dimension2D dimen = getDimension(getParent(),getLayoutX()+getTranslateX(),getLayoutY()+getHeight() +getTranslateY());
+    //SHOWING THE POPUP JUST BELOW TEXTBOX
+    popup.show(
+        getWindow(),
+        getWindow().getX() + textbox.localToScene(0, 0).getX() + textbox.getScene().getX(),
+        getWindow().getY() + textbox.localToScene(0, 0).getY() + textbox.getScene().getY() + TITLE_HEIGHT);
 
-    this.listview.getSelectionModel().clearSelection();
-    this.listview.getFocusModel().focus(-1);
+    listview.getSelectionModel().clearSelection();
+    listview.getFocusModel().focus(-1);
   }
 
+  /**
+   * This function hides the popup containing listview
+   */
   public void hidePopup() {
-    this.popup.hide();
+    popup.hide();
   }
 
+  /**
+   * *********************************************
+   * When ever the the rawTextProperty is changed then this listener is
+   * activated
+   * <p>
+   *
+   * @param ov
+   * @param t
+   * @param t1 **********************************************
+   */
+  @Override
   public void changed(ObservableValue<? extends String> ov, String t, String t1) {
-    if (((String) ov.getValue()).toString().length() > 0) {
-      String txtdata = this.textbox.getText().trim();
 
+    if (ov.getValue().length() > 0) {
+      String txtdata = (textbox.getText()).trim();
+
+      //Limit of data cell to be shown in ListView
       int limit = 0;
       if (txtdata.length() > 0) {
         ObservableList list = FXCollections.observableArrayList();
         String compare = txtdata.toLowerCase();
-        for (Iterator i$ = this.data.iterator(); i$.hasNext(); ) {
-          Object dat = i$.next();
+        for (Object dat : data) {
           String str = dat.toString().toLowerCase();
 
           if (str.startsWith(compare)) {
             list.add(dat);
             limit++;
           }
-          if (limit == this.autofillTextbox.getListLimit())
+          if (limit == autofillTextbox.getListLimit()) {
             break;
+          }
         }
-        if ((this.listview.getItems().containsAll(list))
-            && (this.listview.getItems().size() == list.size())
-            && (this.listview.getItems() != null)) {
+        if (listview.getItems().containsAll(list) && listview.getItems().size() == list.size() && listview.getItems() != null) {
           showPopup();
+        } else {
+          listview.setItems(list);
         }
-        else
-          this.listview.setItems(list);
-
-      } else if (this.autofillTextbox.getFilterMode()) {
-        this.listview.setItems(this.data);
       } else {
-        this.listview.setItems(null);
+        listview.setItems(autofillTextbox.getFilterMode() ? data : null);
       }
 
     }
 
-    if (((String) ov.getValue()).toString().length() <= 0) {
-      this.temporaryTxt = "";
-      if (this.autofillTextbox.getFilterMode()) {
-        this.listview.setItems(this.data);
+    if (ov.getValue().length() <= 0) {
+      temporaryTxt = "";
+      if (autofillTextbox.getFilterMode()) {
+
+        //listview.getItems().clear();
+        //listview.getItems().addAll(data);
+        listview.setItems(data);
         showPopup();
       } else {
         hidePopup();

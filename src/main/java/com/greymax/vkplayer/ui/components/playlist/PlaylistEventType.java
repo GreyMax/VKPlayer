@@ -4,8 +4,8 @@ import javafx.event.EventType;
 
 public enum PlaylistEventType {
 
-  REFRESH(new PlaylistRefreshEventType()),
-  DELETE(new PlaylistDeleteEventType());
+  REFRESH(new EventType("playlistRefresh")),
+  DELETE(new EventType("playlistRemove"));
 
   private EventType eventType;
 

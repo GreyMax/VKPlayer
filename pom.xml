@@ -20,8 +20,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.java.home>c:\Program Files (x86)\Java\jdk1.7</project.java.home>
-    <linux.project.java.home>/usr/java/jdk1.7.0_10</linux.project.java.home>
+    <project.java.home>${env.JAVA_HOME}</project.java.home>
     <javafx.version>2.2</javafx.version>
     <keyPassword>iehvbyfnjh</keyPassword>
     <!-- TODO: exclude to config file -->
@@ -44,8 +43,8 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-          <source>1.7</source>
-          <target>1.7</target>
+          <source>1.8</source>
+          <target>1.8</target>
         </configuration>
       </plugin>
       <plugin>
@@ -140,14 +139,9 @@
             <groupId>com.oracle</groupId>
             <artifactId>javafx</artifactId>
             <version>${javafx.version}</version>
-            <systemPath>${project.java.home}/jre/lib/jfxrt.jar</systemPath>
+            <systemPath>${project.java.home}/jre/lib/ext/jfxrt.jar</systemPath>
             <scope>system</scope>
           </dependency>
-          <!--<dependency>-->
-          <!--<groupId>package.icons</groupId>-->
-          <!--<artifactId>icons</artifactId>-->
-          <!--<version>1.2</version>-->
-          <!--</dependency>-->
         </dependencies>
       </plugin>
     </plugins>
@@ -179,14 +173,14 @@
       <groupId>com.oracle</groupId>
       <artifactId>javafx</artifactId>
       <version>${javafx.version}</version>
-      <systemPath>${project.java.home}/jre/lib/jfxrt.jar</systemPath>
+      <systemPath>${project.java.home}/jre/lib/ext/jfxrt.jar</systemPath>
       <scope>system</scope>
     </dependency>
 
     <dependency>
       <groupId>org.jfxtras</groupId>
       <artifactId>jfxtras-labs</artifactId>
-      <version>2.2-r4</version>
+      <version>8.0-r4</version>
     </dependency>
 
     <dependency>

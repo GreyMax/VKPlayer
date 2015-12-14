@@ -53,30 +53,21 @@ public class AuthController implements Initializable {
   public void initialize(URL url, ResourceBundle resourceBundle) {
     this.loginField.setData(FXCollections.observableArrayList(UserService.getInstance().getAllUserNames()));
     this.loginField.getListview().setMinWidth(180);
-    this.loginField.textProperty().addListener(new ChangeListener<String>() {
-      @Override
-      public void changed(ObservableValue<? extends String> observableValue, String s, String s2) {
-        loginField.getTextbox().getStyleClass().remove(ERROR_VALIDATION_STYLE_CLASS);
+    this.loginField.textProperty().addListener((observableValue, s, s2) -> {
+      loginField.getTextbox().getStyleClass().remove(ERROR_VALIDATION_STYLE_CLASS);
+    });
+    this.loginField.addSelectionListener((observableValue, o, o2) -> {
+      passwordField.requestFocus();
+      String username = loginField.getText();
+      User persistentUser = userService.getUserByUsername(username);
+      if (null != persistentUser) {
+        rememberMeCheckBox.fire();
+        passwordField.setText(persistentUser.getPassword());
+        passwordField.end();
       }
     });
-    this.loginField.addSelectionListener(new ChangeListener() {
-      @Override
-      public void changed(ObservableValue observableValue, Object o, Object o2) {
-        passwordField.requestFocus();
-        String username = loginField.getText();
-        User persistentUser = userService.getUserByUsername(username);
-        if (null != persistentUser) {
-          rememberMeCheckBox.fire();
-          passwordField.setText(persistentUser.getPassword());
-          passwordField.end();
-        }
-      }
-    });
-    this.passwordField.textProperty().addListener(new ChangeListener<String>() {
-      @Override
-      public void changed(ObservableValue<? extends String> observableValue, String s, String s2) {
-        passwordField.getStyleClass().remove(ERROR_VALIDATION_STYLE_CLASS);
-      }
+    this.passwordField.textProperty().addListener((observableValue, s, s2) -> {
+      passwordField.getStyleClass().remove(ERROR_VALIDATION_STYLE_CLASS);
     });
   }
 
@@ -84,52 +75,43 @@ public class AuthController implements Initializable {
   public void login(final ActionEvent event) {
     spinner.start();
     loginButton.setDisable(true);
-    new Thread(new Runnable() {
-      @Override
-      public void run() {
-        String login = loginField.getText();
-        String password = passwordField.getText();
+    new Thread(() -> {
+      String login = loginField.getText();
+      String password = passwordField.getText();
 
-        // validation inputs
-        if (!validate(login, password)) return;
+      // validation inputs
+      if (!validate(login, password)) return;
 
-        try {
-          user = new User(login, password);
-          LoginService.logIn(CLIENT_ID, VK_PERMISSIONS, user);
+      try {
+        user = new User(login, password);
+        LoginService.logIn(CLIENT_ID, VK_PERMISSIONS, user);
 
-          //TODO: add flag to remember password into User
-          if (rememberMeCheckBox.isSelected())
-            userService.createOrUpdateUser(user);
+        //TODO: add flag to remember password into User
+        if (rememberMeCheckBox.isSelected())
+          userService.createOrUpdateUser(user);
 
-          //TODO: move to DB side
-          Settings settings = Utils.getSettingsForUser(user);
-          user.setSettings(settings);
+        //TODO: move to DB side
+        Settings settings = Utils.getSettingsForUser(user);
+        user.setSettings(settings);
 
-          Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-              try {
-                spinner.stop();
-                loginButton.setDisable(false);
-                new VKPlayer().start(((Stage) ((Control) event.getSource()).getScene().getWindow()));
-              } catch (Exception ex) {
-                ex.printStackTrace();
-              }
-            }
-          });
-        } catch (AuthorizationException authEx) {
-          System.out.println(authEx.getMessage());
-          Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-              spinner.stop();
-              loginButton.setDisable(false);
-              Dialogs.showErrorDialog(dialogStage,
-                  "Please check that you have entered your login and password correctly or check internet connection",
-                  "Unable to log in", "Error");
-            }
-          });
-        }
+        Platform.runLater(() -> {
+          try {
+            spinner.stop();
+            loginButton.setDisable(false);
+            new VKPlayer().start(((Stage) ((Control) event.getSource()).getScene().getWindow()));
+          } catch (Exception ex) {
+            ex.printStackTrace();
+          }
+        });
+      } catch (AuthorizationException authEx) {
+        System.out.println(authEx.getMessage());
+        Platform.runLater(() -> {
+          spinner.stop();
+          loginButton.setDisable(false);
+          Dialogs.showErrorDialog(dialogStage,
+              "Please check that you have entered your login and password correctly or check internet connection",
+              "Unable to log in", "Error");
+        });
       }
     }).start();
   }
