@@ -2,7 +2,7 @@ package com.greymax.vkplayer.services.auth;
 
 import com.greymax.vkplayer.api.Api;
 import com.greymax.vkplayer.api.params.P;
-import com.greymax.vkplayer.objects.Token;
+import com.greymax.vkplayer.auth.Token;
 import com.greymax.vkplayer.objects.User;
 import com.greymax.vkplayer.objects.auth.AcceptAllSpecFactory;
 import com.greymax.vkplayer.objects.auth.AuthorizationException;

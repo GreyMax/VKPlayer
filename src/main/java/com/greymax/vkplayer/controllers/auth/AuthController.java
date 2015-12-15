@@ -11,8 +11,6 @@ import com.greymax.vkplayer.ui.components.autocomplete.AutoFillTextBox;
 import com.greymax.vkplayer.ui.components.autocomplete.AutoFillTextBoxSkin;
 import com.greymax.vkplayer.ui.components.spinner.Spinner;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -127,12 +125,9 @@ public class AuthController implements Initializable {
       if (null == password || password.isEmpty())
         passwordField.getStyleClass().add(ERROR_VALIDATION_STYLE_CLASS);
 
-      Platform.runLater(new Runnable() {
-          @Override
-          public void run() {
-            spinner.stop();
-            loginButton.setDisable(false);
-          }
+      Platform.runLater(() -> {
+        spinner.stop();
+        loginButton.setDisable(false);
       });
       return false;
     }

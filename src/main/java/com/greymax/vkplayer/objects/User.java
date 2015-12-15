@@ -1,5 +1,7 @@
 package com.greymax.vkplayer.objects;
 
+import com.greymax.vkplayer.auth.Token;
+
 public class User {
 
   public static final String USER_FIST_NAME_PARAMETER = "first_name";

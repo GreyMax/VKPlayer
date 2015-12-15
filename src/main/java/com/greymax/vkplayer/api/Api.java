@@ -1,7 +1,7 @@
 package com.greymax.vkplayer.api;
 
 import com.greymax.vkplayer.api.params.P;
-import com.greymax.vkplayer.objects.Token;
+import com.greymax.vkplayer.auth.Token;
 import org.apache.http.HttpResponse;
 import org.apache.http.ParseException;
 import org.apache.http.client.HttpClient;
