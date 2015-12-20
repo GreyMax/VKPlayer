@@ -3,15 +3,15 @@ package com.greymax.vkplayer.auth;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.vkontakte.api.VKontakte;
 
-public final class AuthService {
+public final class VKAuthService {
 
-  private static AuthService instance;
+  private static VKAuthService instance;
 
   private Connection<VKontakte> connection;
 
-  public static AuthService getInstance() {
+  public static VKAuthService getInstance() {
     if (null == instance) {
-      instance = new AuthService();
+      instance = new VKAuthService();
     }
     return instance;
   }

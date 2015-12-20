@@ -1,7 +1,5 @@
 package com.greymax.vkplayer.controllers.main;
 
-import com.greymax.vkplayer.objects.Album;
-import com.greymax.vkplayer.services.audio.AudioService;
 import com.greymax.vkplayer.ui.components.playlist.Playlist;
 import com.greymax.vkplayer.ui.components.playlist.PlaylistEvent;
 import com.greymax.vkplayer.ui.components.playlist.PlaylistEventType;
@@ -25,7 +23,7 @@ import java.util.ResourceBundle;
 
 public class MainController implements Initializable, EventHandler {
 
-  private AudioService audioService = AudioService.getInstance();
+//  private AudioService audioService = AudioService.getInstance();
 
   @FXML
   public SplitPane splitPane;
@@ -47,8 +45,9 @@ public class MainController implements Initializable, EventHandler {
     playlistTitle.setFont(Font.font(null, FontWeight.BOLD, 12));
     friendsTitle.setEffect(ds);
     friendsTitle.setFont(Font.font(null, FontWeight.BOLD, 12));
-    for (Album album : audioService.getAlbums())
-      playlistItems.getItems().add(new Playlist(PlaylistType.ALBUM, album.getTitle()));
+    // TODO: use IAudioOperations
+//    for (Album album : audioService.getAlbums())
+//      playlistItems.getItems().add(new Playlist(PlaylistType.ALBUM, album.getTitle()));
 
     for (Object playlist : playlistItems.getItems())
       ((Playlist) playlist).addActionListener(this);

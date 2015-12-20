@@ -25,7 +25,7 @@ public class ApplicationProperties {
     }
   }
 
-  public String getSting(Object key) {
+  public String getString(Object key) {
     Object property = properties.get(key);
     return null == property ? null : property.toString();
   }

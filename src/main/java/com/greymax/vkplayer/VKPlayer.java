@@ -1,28 +1,28 @@
 package com.greymax.vkplayer;
 
 import com.greymax.vkplayer.auth.VkAuthScene;
+import com.greymax.vkplayer.ui.VKPlayerScene;
 import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class VKPlayer extends Application {
 
-  public static final String VK_PLAYER_ICON = "image/ico.png";
-  public static final String VK_PLAYER_TITLE_KEY = "title";
-
   @Override
   public void start(Stage stage) throws Exception {
     ApplicationProperties applicationProperties = ApplicationProperties.getInstance();
-//    Parent root = FXMLLoader.load(getClass().getResource("ui/main/index.fxml"));
-//    root.getStylesheets().add("/css/main/playlist.css");
-//    root.getStylesheets().add("/css/components/SearchBox.css");
-    stage.setTitle(applicationProperties.getSting(VK_PLAYER_TITLE_KEY));
+    stage.setTitle(applicationProperties.getString(Constants.APP.TITLE));
     stage.setResizable(Boolean.TRUE);
-    stage.getIcons().add(new Image(VK_PLAYER_ICON));
+    stage.getIcons().add(new Image(applicationProperties.getString(Constants.APP.ICON)));
 
     VkAuthScene vkAuthScene = new VkAuthScene();
     vkAuthScene.addLoginListener(event -> {
-      stage.hide();
+      Integer minHeight = applicationProperties.getInt(Constants.APP.MIN_HEIGHT);
+      Integer minWidth = applicationProperties.getInt(Constants.APP.MIN_WIDTH);
+      stage.setScene(new VKPlayerScene(minWidth, minHeight));
+      stage.setMinHeight(minHeight);
+      stage.setMinWidth(minWidth);
+      stage.sizeToScene();
     });
 
     stage.setScene(vkAuthScene);

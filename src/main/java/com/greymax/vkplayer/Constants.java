@@ -5,6 +5,13 @@ import java.util.Locale;
 //TODO: Maybe split this into UI and other constants
 public class Constants {
 
+  public static class APP {
+    public static final String ICON = "app.icon";
+    public static final String TITLE = "app.title";
+    public static final String MIN_WIDTH = "app.minWidth";
+    public static final String MIN_HEIGHT = "app.minHeight";
+  }
+
   public static class MENU {
 
     public static class FILE {

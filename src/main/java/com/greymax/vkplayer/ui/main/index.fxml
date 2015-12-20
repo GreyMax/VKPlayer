@@ -4,7 +4,6 @@
 <?import com.greymax.vkplayer.ui.components.playlist.Playlist?>
 <?import com.greymax.vkplayer.ui.components.searchbox.SearchBox?>
 <?import javafx.collections.FXCollections?>
-<?import javafx.collections.ObservableList?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>

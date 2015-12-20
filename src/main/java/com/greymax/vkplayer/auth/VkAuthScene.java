@@ -76,7 +76,7 @@ public class VkAuthScene extends Scene {
       AccessGrant accessGrant = new AccessGrant(token.getToken());
       Connection<VKontakte> connection = this.connectionFactory.createConnection(accessGrant);
       logger.info(String.format("User %s successfully logged in.", connection.getDisplayName()));
-      AuthService.getInstance().setConnection(connection);
+      VKAuthService.getInstance().setConnection(connection);
 
 
       loginEventHandlers.stream().forEach(eventHandler -> {
