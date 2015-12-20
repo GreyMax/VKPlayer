@@ -22,6 +22,8 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.java.home>${env.JAVA_HOME}</project.java.home>
     <javafx.version>2.2</javafx.version>
+    <jackson.version>2.6.4</jackson.version>
+
     <keyPassword>iehvbyfnjh</keyPassword>
     <!-- TODO: exclude to config file -->
     <vendor>Alexander Pasechnik</vendor>
@@ -29,6 +31,26 @@
 
   <build>
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-install-plugin</artifactId>
+        <version>2.5.2</version>
+        <executions>
+          <execution>
+            <phase>initialize</phase>
+            <goals>
+              <goal>install-file</goal>
+            </goals>
+            <configuration>
+              <groupId>com.github.weekens</groupId>
+              <artifactId>spring-social-vkontakte</artifactId>
+              <version>1.1.0.BUILD-SNAPSHOT</version>
+              <packaging>jar</packaging>
+              <file>${project.basedir}/lib/spring-social-vkontakte-1.1.0.BUILD-SNAPSHOT.jar</file>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
@@ -205,6 +227,27 @@
       <version>3.7.2</version>
     </dependency>
 
+    <!-- Jackson -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+
+    <!-- Spring Social-->
+
+    <dependency>
+      <groupId>org.springframework.social</groupId>
+      <artifactId>spring-social-core</artifactId>
+      <version>1.1.4.RELEASE</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.github.weekens</groupId>
+      <artifactId>spring-social-vkontakte</artifactId>
+      <version>1.1.0.BUILD-SNAPSHOT</version>
+    </dependency>
+
     <!--json-->
     <dependency>
       <groupId>org.json</groupId>
@@ -215,12 +258,6 @@
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
       <artifactId>httpcore</artifactId>
-      <version>4.1.2</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.httpcomponents</groupId>
-      <artifactId>httpclient</artifactId>
       <version>4.1.2</version>
     </dependency>
 

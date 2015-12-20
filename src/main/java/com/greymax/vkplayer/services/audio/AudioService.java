@@ -133,7 +133,7 @@ public class AudioService {
   public void addSongToMyMusic(User user, Song song) {
     try {
       P params = new P("aid=" + song.getId() + ",oid=" + song.getOwner_id());
-      Api.make(user.getToken(), ApiMethods.Audio.ADD, params);
+//      Api.make(user.getToken(), ApiMethods.Audio.ADD, params);
     } catch (Exception e) {
       logger.error("Add song to my music:", e);
     }
@@ -142,7 +142,7 @@ public class AudioService {
   public void deleteSongFromMyMusic(User user, Song song) {
     try {
       P params = new P("aid=" + song.getId() + ",oid=" + song.getOwner_id());
-      Api.make(user.getToken(), ApiMethods.Audio.DELETE, params);
+//      Api.make(user.getToken(), ApiMethods.Audio.DELETE, params);
     } catch (Exception e) {
       logger.error("Delete song from my music:", e);
     }
@@ -155,7 +155,7 @@ public class AudioService {
           + ",no_search=0"
           + ",artist=" + song.getArtist()
           + ",title=" + song.getTitle());
-      Api.make(loggedUser.getToken(), ApiMethods.Audio.EDIT, params);
+//      Api.make(loggedUser.getToken(), ApiMethods.Audio.EDIT, params);
     } catch (Exception e) {
       logger.error("Edit song error:", e);
     }
@@ -169,8 +169,8 @@ public class AudioService {
     User loggedUser = userService.getLoggedUser();
     try {
       P params = new P("lyrics_id=" + song.getLyricsId());
-      JSONObject jsonResult = new JSONObject(Api.make(loggedUser.getToken(), ApiMethods.Audio.GET_LYRICS, params));
-      result = ((JSONObject) jsonResult.get("response")).getString("text");
+//      JSONObject jsonResult = new JSONObject(Api.make(loggedUser.getToken(), ApiMethods.Audio.GET_LYRICS, params));
+//      result = ((JSONObject) jsonResult.get("response")).getString("text");
     } catch (Exception ex) {
       logger.error("Can not get lyrics for song: " + song.getDisplayName(), ex);
     }
@@ -188,7 +188,7 @@ public class AudioService {
             + ",artist=" + song.getArtist()
             + ",title=" + song.getTitle()
             + ",text=" + text);
-        Api.make(loggedUser.getToken(), ApiMethods.Audio.EDIT, params);
+//        Api.make(loggedUser.getToken(), ApiMethods.Audio.EDIT, params);
       } catch (Exception ex) {
         logger.error("Can not get lyrics for song: " + song.getDisplayName(), ex);
       }
@@ -214,8 +214,8 @@ public class AudioService {
   // Utils
   private JSONArray make(User user, String method, P params) {
     try {
-      JSONObject jsonResult = new JSONObject(Api.make(user.getToken(), method, params));
-      return (JSONArray) jsonResult.get("response");
+//      JSONObject jsonResult = new JSONObject(Api.make(user.getToken(), method, params));
+//      return (JSONArray) jsonResult.get("response");
     } catch (Exception e) {
       e.printStackTrace();
     }

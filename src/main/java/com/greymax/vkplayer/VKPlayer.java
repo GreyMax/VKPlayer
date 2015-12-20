@@ -1,6 +1,5 @@
 package com.greymax.vkplayer;
 
-import com.greymax.vkplayer.auth.Token;
 import com.greymax.vkplayer.auth.VkAuthScene;
 import javafx.application.Application;
 import javafx.scene.image.Image;
@@ -13,7 +12,6 @@ public class VKPlayer extends Application{
 
   @Override
   public void start(Stage stage) throws Exception {
-    stage.hide();
 //    Parent root = FXMLLoader.load(getClass().getResource("ui/main/index.fxml"));
 //    root.getStylesheets().add("/css/main/playlist.css");
 //    root.getStylesheets().add("/css/components/SearchBox.css");
@@ -21,10 +19,8 @@ public class VKPlayer extends Application{
     stage.setResizable(Boolean.TRUE);
     stage.getIcons().add(new Image(APPLICATION_ICON));
 
-
     VkAuthScene vkAuthScene = new VkAuthScene();
     vkAuthScene.addLoginListener(event -> {
-      Token token = vkAuthScene.getToken();
       stage.hide();
     });
 
