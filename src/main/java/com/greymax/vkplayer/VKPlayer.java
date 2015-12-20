@@ -29,4 +29,8 @@ public class VKPlayer extends Application {
     stage.sizeToScene();
     stage.show();
   }
+
+  public static void main(String[] args) {
+    launch(args);
+  }
 }

@@ -21,16 +21,17 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.java.home>${env.JAVA_HOME}</project.java.home>
+    <project.organization.name>Alexander Pasechnik</project.organization.name>
+
     <javafx.version>2.2</javafx.version>
     <jackson.version>2.6.4</jackson.version>
-
-    <keyPassword>iehvbyfnjh</keyPassword>
-    <!-- TODO: exclude to config file -->
-    <vendor>Alexander Pasechnik</vendor>
   </properties>
 
   <build>
     <plugins>
+
+      <!-- Install third-party libs -->
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-install-plugin</artifactId>
@@ -51,6 +52,9 @@
           </execution>
         </executions>
       </plugin>
+
+      <!-- Compile sources -->
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
@@ -69,118 +73,152 @@
           <target>1.8</target>
         </configuration>
       </plugin>
+
+      <!-- Create JavaFX application -->
+
       <plugin>
-        <artifactId>maven-assembly-plugin</artifactId>
+        <groupId>com.zenjava</groupId>
+        <artifactId>javafx-maven-plugin</artifactId>
+        <version>8.1.4</version>
         <configuration>
-          <archive>
-            <manifestEntries>
-              <JavaFX-Version>${javafx.version}+</JavaFX-Version>
-              <JavaFX-Application-Class>com.greymax.vkplayer.VKPlayer</JavaFX-Application-Class>
-              <Main-Class>com.javafx.main.Main</Main-Class>
-              <JavaFX-Class-Path>
-                <!-- list all your dependencies here-->
-              </JavaFX-Class-Path>
-              <!-- The artifactId (name) of the jfxrt.jar ... see dependency system scope-->
-              <Class-Path>javafx-${javafx.version}.jar VKPlayer.jar</Class-Path>
-            </manifestEntries>
-            <manifest>
-              <addClasspath>true</addClasspath>
-            </manifest>
-          </archive>
-          <descriptorRefs>
-            <descriptorRef>jar-with-dependencies</descriptorRef>
-          </descriptorRefs>
-          <appendAssemblyId>false</appendAssemblyId>
-          <finalName>${project.name}</finalName>
+          <mainClass>com.greymax.vkplayer.VKPlayer</mainClass>
+          <jfxMainAppJarName>VKPlayer.jar</jfxMainAppJarName>
+          <needShortcut>true</needShortcut>
+          <needMenu>true</needMenu>
+          <appName>VKPlayer</appName>
         </configuration>
         <executions>
           <execution>
-            <id>make-assembly</id>
+            <!-- required before build-native -->
+            <id>create-jfxjar</id>
             <phase>package</phase>
-            <!-- bind to the packaging phase -->
             <goals>
-              <goal>single</goal>
+              <goal>build-jar</goal>
             </goals>
           </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-antrun-plugin</artifactId>
-        <version>1.7</version>
-        <executions>
           <execution>
+            <id>create-native</id>
             <phase>package</phase>
-            <configuration>
-              <target xmlns:fx="javafx:com.sun.javafx.tools.ant">
-                <taskdef resource="com/sun/javafx/tools/ant/antlib.xml"
-                         uri="javafx:com.sun.javafx.tools.ant"
-                         classpath=".:${project.java.home}\lib\ant-javafx.jar"/>
-
-                <fx:deploy width="1024" height="768"
-                           nativeBundles="all"
-                           outdir="${project.build.directory}/deploy"
-                           outfile="${build.finalName}"
-                           offlineAllowed="false"
-                           verbose="true">
-                  <fx:application name="${project.name}" mainClass="com.javafx.main.Main"
-                                  toolkit="swing"/>
-                  <fx:resources>
-                    <fx:fileset dir="${project.build.directory}" includes="*.jar"/>
-                  </fx:resources>
-
-                  <fx:preferences shortcut="true"
-                                  menu="true"
-                                  install="true"/>
-
-                  <fx:info title="${project.name}" vendor="${vendor}"/>
-                </fx:deploy>
-
-                <fx:signjar destdir="${project.build.directory}/deploy/bundles/VKPlayer/app"
-                            keyStore="${project.basedir}/src/main/java/jnlp/keystore.jks"
-                            storePass="${keyPassword}" alias="signFiles"
-                            keyPass="${keyPassword}">
-                  <fileset dir="${project.build.directory}/deploy/bundles/VKPlayer/app" includes="*.jar"/>
-                </fx:signjar>
-              </target>
-            </configuration>
             <goals>
-              <goal>run</goal>
+              <goal>build-native</goal>
             </goals>
           </execution>
         </executions>
-        <dependencies>
-          <dependency>
-            <groupId>com.oracle</groupId>
-            <artifactId>ant-javafx</artifactId>
-            <version>${javafx.version}</version>
-            <systemPath>${project.java.home}/lib/ant-javafx.jar</systemPath>
-            <scope>system</scope>
-          </dependency>
-          <dependency>
-            <groupId>com.oracle</groupId>
-            <artifactId>javafx</artifactId>
-            <version>${javafx.version}</version>
-            <systemPath>${project.java.home}/jre/lib/ext/jfxrt.jar</systemPath>
-            <scope>system</scope>
-          </dependency>
-        </dependencies>
       </plugin>
+
+      <!--<plugin>-->
+        <!--<artifactId>maven-assembly-plugin</artifactId>-->
+        <!--<configuration>-->
+          <!--<archive>-->
+            <!--<manifestEntries>-->
+              <!--<JavaFX-Version>${javafx.version}+</JavaFX-Version>-->
+              <!--<JavaFX-Application-Class>com.greymax.vkplayer.VKPlayer</JavaFX-Application-Class>-->
+              <!--<Main-Class>com.javafx.main.Main</Main-Class>-->
+              <!--<JavaFX-Class-Path>-->
+                <!--&lt;!&ndash; list all your dependencies here&ndash;&gt;-->
+              <!--</JavaFX-Class-Path>-->
+              <!--&lt;!&ndash; The artifactId (name) of the jfxrt.jar ... see dependency system scope&ndash;&gt;-->
+              <!--<Class-Path>javafx-${javafx.version}.jar VKPlayer.jar</Class-Path>-->
+            <!--</manifestEntries>-->
+            <!--<manifest>-->
+              <!--<addClasspath>true</addClasspath>-->
+            <!--</manifest>-->
+          <!--</archive>-->
+          <!--<descriptorRefs>-->
+            <!--<descriptorRef>jar-with-dependencies</descriptorRef>-->
+          <!--</descriptorRefs>-->
+          <!--<appendAssemblyId>false</appendAssemblyId>-->
+          <!--<finalName>${project.name}</finalName>-->
+        <!--</configuration>-->
+        <!--<executions>-->
+          <!--<execution>-->
+            <!--<id>make-assembly</id>-->
+            <!--<phase>package</phase>-->
+            <!--&lt;!&ndash; bind to the packaging phase &ndash;&gt;-->
+            <!--<goals>-->
+              <!--<goal>single</goal>-->
+            <!--</goals>-->
+          <!--</execution>-->
+        <!--</executions>-->
+      <!--</plugin>-->
+
+      <!--<plugin>-->
+        <!--<groupId>org.apache.maven.plugins</groupId>-->
+        <!--<artifactId>maven-antrun-plugin</artifactId>-->
+        <!--<version>1.7</version>-->
+        <!--<executions>-->
+          <!--<execution>-->
+            <!--<phase>package</phase>-->
+            <!--<configuration>-->
+              <!--<target xmlns:fx="javafx:com.sun.javafx.tools.ant">-->
+                <!--<taskdef resource="com/sun/javafx/tools/ant/antlib.xml"-->
+                         <!--uri="javafx:com.sun.javafx.tools.ant"-->
+                         <!--classpath=".:${project.java.home}\lib\ant-javafx.jar"/>-->
+
+                <!--<fx:deploy width="1024" height="768"-->
+                           <!--nativeBundles="all"-->
+                           <!--outdir="${project.build.directory}/deploy"-->
+                           <!--outfile="${build.finalName}"-->
+                           <!--offlineAllowed="false"-->
+                           <!--verbose="true">-->
+                  <!--<fx:application name="${project.name}" mainClass="com.javafx.main.Main"-->
+                                  <!--toolkit="swing"/>-->
+                  <!--<fx:resources>-->
+                    <!--<fx:fileset dir="${project.build.directory}" includes="*.jar"/>-->
+                  <!--</fx:resources>-->
+
+                  <!--<fx:preferences shortcut="true"-->
+                                  <!--menu="true"-->
+                                  <!--install="true"/>-->
+
+                  <!--<fx:info title="${project.name}" vendor="${vendor}"/>-->
+                <!--</fx:deploy>-->
+
+                <!--<fx:signjar destdir="${project.build.directory}/deploy/bundles/VKPlayer/app"-->
+                            <!--keyStore="${project.basedir}/src/main/java/jnlp/keystore.jks"-->
+                            <!--storePass="${keyPassword}" alias="signFiles"-->
+                            <!--keyPass="${keyPassword}">-->
+                  <!--<fileset dir="${project.build.directory}/deploy/bundles/VKPlayer/app" includes="*.jar"/>-->
+                <!--</fx:signjar>-->
+              <!--</target>-->
+            <!--</configuration>-->
+            <!--<goals>-->
+              <!--<goal>run</goal>-->
+            <!--</goals>-->
+          <!--</execution>-->
+        <!--</executions>-->
+        <!--<dependencies>-->
+          <!--<dependency>-->
+            <!--<groupId>com.oracle</groupId>-->
+            <!--<artifactId>ant-javafx</artifactId>-->
+            <!--<version>${javafx.version}</version>-->
+            <!--<systemPath>${project.java.home}/lib/ant-javafx.jar</systemPath>-->
+            <!--<scope>system</scope>-->
+          <!--</dependency>-->
+          <!--<dependency>-->
+            <!--<groupId>com.oracle</groupId>-->
+            <!--<artifactId>javafx</artifactId>-->
+            <!--<version>${javafx.version}</version>-->
+            <!--<systemPath>${project.java.home}/jre/lib/ext/jfxrt.jar</systemPath>-->
+            <!--<scope>system</scope>-->
+          <!--</dependency>-->
+        <!--</dependencies>-->
+      <!--</plugin>-->
     </plugins>
     <finalName>VKPlayer</finalName>
     <resources>
       <resource>
-        <targetPath>${build.outputDirectory}</targetPath>
+        <targetPath>${project.build.outputDirectory}</targetPath>
         <filtering>false</filtering>
-        <directory>${basedir}/src/main/resources</directory>
+        <directory>${project.basedir}/src/main/resources</directory>
         <includes>
           <include>**/**</include>
         </includes>
       </resource>
       <resource>
-        <targetPath>${build.outputDirectory}/com/greymax/vkplayer/ui</targetPath>
+        <targetPath>${project.build.outputDirectory}/com/greymax/vkplayer/ui</targetPath>
         <filtering>false</filtering>
-        <directory>${build.sourceDirectory}/com/greymax/vkplayer/ui</directory>
+        <directory>${project.build.sourceDirectory}/com/greymax/vkplayer/ui</directory>
         <includes>
           <include>**/*.fxml</include>
         </includes>
