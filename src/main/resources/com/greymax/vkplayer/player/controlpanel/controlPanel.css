@@ -6,6 +6,7 @@
   -fx-background-insets: 2;
   -fx-text-fill: white;
 }
+
 .round-button-prev,
 .round-button-next {
   -fx-background-radius: 24px;
@@ -15,6 +16,7 @@
   -fx-background-insets: 2;
   -fx-text-fill: white;
 }
+
 .round-button-settings {
   -fx-background-radius: 40px;
   -fx-border-radius: 40px;
@@ -23,30 +25,37 @@
   -fx-background-insets: 2;
   -fx-text-fill: white;
 }
+
 .round-button-repeat,
 .round-button-random {
   -fx-background-radius: 20px;
   -fx-border-radius: 20px;
   -fx-background-color: #5A7FA7;
 }
+
 .round-button-repeat:pressed,
 .round-button-random:pressed {
   -fx-background-color: #4a6c93;
 }
+
 .round-button-repeat-selected,
 .round-button-repeat-selected1,
 .round-button-random:selected {
   -fx-background-color: #4a6c93;
 }
+
 .settings-separator {
   /*-fx-background-color: #000000;*/
 }
+
 .progress-time {
   -fx-text-fill: white;
 }
+
 .progress-slider {
 
 }
+
 .song-title {
   -fx-text-fill: white;
 }

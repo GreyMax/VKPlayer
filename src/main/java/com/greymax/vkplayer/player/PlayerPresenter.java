@@ -1,5 +1,6 @@
 package com.greymax.vkplayer.player;
 
+import com.greymax.vkplayer.player.controlpanel.ControlPanelView;
 import com.greymax.vkplayer.ui.components.playlist.Playlist;
 import com.greymax.vkplayer.ui.components.playlist.PlaylistEvent;
 import com.greymax.vkplayer.ui.components.playlist.PlaylistEventType;
@@ -13,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -23,21 +25,29 @@ import java.util.ResourceBundle;
 
 public class PlayerPresenter implements Initializable, EventHandler {
 
-//  private AudioService audioService = AudioService.getInstance();
+  @FXML
+  public HBox controlPanelContainer;
 
   @FXML
   public SplitPane splitPane;
+
   @FXML
   public Button addPlaylistButton;
+
   @FXML
   public Text playlistTitle;
+
   @FXML
   public Text friendsTitle;
+
   @FXML
   public ListView playlistItems;
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
+    ControlPanelView controlPanelView = new ControlPanelView();
+    controlPanelContainer.getChildren().add(controlPanelView.getView());
+
     DropShadow ds = new DropShadow();
     ds.setOffsetY(3.0f);
     ds.setColor(Color.color(0.4f, 0.4f, 0.4f));

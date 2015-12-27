@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.greymax.vkplayer.ui.components.control.panel.ControlPanel?>
 <?import com.greymax.vkplayer.ui.components.playlist.Playlist?>
 <?import com.greymax.vkplayer.ui.components.searchbox.SearchBox?>
 <?import javafx.collections.FXCollections?>
@@ -8,9 +7,10 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Text?>
+
 <StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.greymax.vkplayer.player.PlayerPresenter">
   <VBox alignment="TOP_CENTER">
-    <ControlPanel style="-fx-background-color: #5A7FA7;" maxHeight="60.0" minHeight="60.0" prefHeight="60.0"/>
+    <HBox fx:id="controlPanelContainer" style="-fx-background-color: #5A7FA7;" maxHeight="60.0" minHeight="60.0" prefHeight="60.0"/>
     <SplitPane fx:id="splitPane" dividerPositions="0.3" focusTraversable="true" VBox.vgrow="ALWAYS" style="-fx-background-color: #d1d1d1">
       <items>
 

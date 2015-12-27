@@ -4,9 +4,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<HBox maxHeight="60.0" minHeight="60.0" prefHeight="60.0"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.greymax.vkplayer.controllers.control.panel.ControlPanelController">
+<HBox xmlns:fx="http://javafx.com/fxml"
+      maxHeight="60.0" maxWidth="Infinity" minHeight="60.0" prefHeight="60.0" HBox.hgrow="ALWAYS"
+      fx:controller="com.greymax.vkplayer.player.controlpanel.ControlPanelPresenter">
 
   <!--Play, pause, prev, next-->
   <VBox alignment="BOTTOM_LEFT" maxWidth="150.0" minWidth="150.0" prefWidth="150.0">
@@ -18,7 +18,7 @@
               maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" prefHeight="30.0" prefWidth="30.0">
         <graphic>
           <ImageView fitHeight="12.0" fitWidth="12.0">
-            <Image url="/image/prev_icon.png"/>
+            <Image url="/com/greymax/vkplayer/player/controlpanel/images/prev_icon.png"/>
           </ImageView>
         </graphic>
       </Button>
@@ -26,7 +26,7 @@
               minWidth="36.0" prefHeight="36.0" prefWidth="36.0" onAction="#play">
         <graphic>
           <ImageView fitHeight="20.0" fitWidth="20.0">
-            <Image url="/image/play_icon.png"/>
+            <Image url="/com/greymax/vkplayer/player/controlpanel/images/play_icon.png"/>
           </ImageView>
         </graphic>
       </Button>
@@ -34,7 +34,7 @@
               maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" prefHeight="30.0" prefWidth="30.0">
         <graphic>
           <ImageView fitHeight="12.0" fitWidth="12.0">
-            <Image url="/image/next_icon.png"/>
+            <Image url="/com/greymax/vkplayer/player/controlpanel/images/next_icon.png"/>
           </ImageView>
         </graphic>
       </Button>
@@ -51,7 +51,7 @@
     </HBox>
     <HBox spacing="3">
       <padding>
-          <Insets right="5"/>
+        <Insets right="5"/>
       </padding>
       <Slider fx:id="seekSlider" styleClass="progress-slider" HBox.hgrow="ALWAYS" />
       <Label fx:id="progressTimeLabel" styleClass="progress-time" text="5:05" />
@@ -69,15 +69,15 @@
               minWidth="20" maxWidth="20" prefWidth="20" minHeight="20" maxHeight="20" prefHeight="20">
         <graphic>
           <ImageView fitWidth="16.0" fitHeight="16.0">
-            <Image url="/image/repeat_icon_white.png" />
+            <Image url="/com/greymax/vkplayer/player/controlpanel/images/repeat_icon_white.png" />
           </ImageView>
         </graphic>
       </Button>
       <ToggleButton fx:id="randomButton" styleClass="round-button-random" onAction="#random"
-              minWidth="20" maxWidth="20" prefWidth="20" minHeight="20" maxHeight="20" prefHeight="20">
+                    minWidth="20" maxWidth="20" prefWidth="20" minHeight="20" maxHeight="20" prefHeight="20">
         <graphic>
           <ImageView fitWidth="16.0" fitHeight="16.0">
-            <Image url="/image/random_icon_white.png" />
+            <Image url="/com/greymax/vkplayer/player/controlpanel/images/random_icon_white.png" />
           </ImageView>
         </graphic>
       </ToggleButton>
@@ -86,7 +86,7 @@
       <Label onMouseClicked="#mute">
         <graphic>
           <ImageView fitWidth="16.0" fitHeight="16.0">
-            <Image url="/image/mute_volume_icon_white.png" />
+            <Image url="/com/greymax/vkplayer/player/controlpanel/images/mute_volume_icon_white.png" />
           </ImageView>
         </graphic>
       </Label>
@@ -94,7 +94,7 @@
       <Label onMouseClicked="#maxVolume">
         <graphic>
           <ImageView fitWidth="16.0" fitHeight="16.0">
-            <Image url="/image/max_volume_icon_white.png" />
+            <Image url="/com/greymax/vkplayer/player/controlpanel/images/max_volume_icon_white.png" />
           </ImageView>
         </graphic>
       </Label>
@@ -113,7 +113,7 @@
             prefHeight="36.0" prefWidth="36.0">
       <graphic>
         <ImageView fitHeight="20.0" fitWidth="20.0">
-          <Image url="/image/settings_button.png"/>
+          <Image url="/com/greymax/vkplayer/player/controlpanel/images/settings_button.png"/>
         </ImageView>
       </graphic>
     </Button>

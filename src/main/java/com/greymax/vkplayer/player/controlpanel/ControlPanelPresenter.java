@@ -1,5 +1,4 @@
-package com.greymax.vkplayer.controllers.control.panel;
-
+package com.greymax.vkplayer.player.controlpanel;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,7 +14,8 @@ import javafx.scene.input.MouseEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ControlPanelController implements Initializable {
+public class ControlPanelPresenter implements Initializable {
+
   @FXML
   public Button prevButton;
   @FXML
@@ -49,7 +49,7 @@ public class ControlPanelController implements Initializable {
 
   @FXML
   public void play(ActionEvent actionEvent) {
-    ImageView imageView = new ImageView(new Image(getClass().getClassLoader().getResource("image/pause_icon.png").toExternalForm()));
+    ImageView imageView = new ImageView(new Image(getClass().getClassLoader().getResource("com/greymax/vkplayer/player/controlpanel/images/pause_icon.png").toExternalForm()));
     imageView.setFitHeight(20.0d);
     imageView.setFitWidth(20.0d);
     playButton.setGraphic(imageView);
@@ -60,14 +60,14 @@ public class ControlPanelController implements Initializable {
     if (repeatButton.getStyleClass().contains("round-button-repeat-selected")) {
       repeatButton.getStyleClass().remove("round-button-repeat-selected");
       repeatButton.getStyleClass().add("round-button-repeat-selected1");
-      ImageView imageView = new ImageView(new Image(getClass().getClassLoader().getResource("image/repeat_icon_one_inverse.png").toExternalForm()));
+      ImageView imageView = new ImageView(new Image(getClass().getClassLoader().getResource("com/greymax/vkplayer/player/controlpanel/images/repeat_icon_one_inverse.png").toExternalForm()));
       imageView.setFitHeight(16.0d);
       imageView.setFitWidth(16.0d);
       repeatButton.setGraphic(imageView);
     }
     else if (repeatButton.getStyleClass().contains("round-button-repeat-selected1")) {
       repeatButton.getStyleClass().remove("round-button-repeat-selected1");
-      ImageView imageView = new ImageView(new Image(getClass().getClassLoader().getResource("image/repeat_icon_white.png").toExternalForm()));
+      ImageView imageView = new ImageView(new Image(getClass().getClassLoader().getResource("com/greymax/vkplayer/player/controlpanel/images/repeat_icon_white.png").toExternalForm()));
       imageView.setFitHeight(16.0d);
       imageView.setFitWidth(16.0d);
       repeatButton.setGraphic(imageView);
@@ -90,4 +90,5 @@ public class ControlPanelController implements Initializable {
   public void maxVolume(MouseEvent mouseEvent) {
     volumeSlider.setValue(100.0d);
   }
+
 }

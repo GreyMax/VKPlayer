@@ -124,6 +124,7 @@
           <include>**/*.fxml</include>
           <include>**/*.css</include>
           <include>**/*.properties</include>
+          <include>**/images/**</include>
           <include>**/image/**</include>
         </includes>
       </resource>
@@ -162,15 +163,6 @@
       <artifactId>afterburner.fx</artifactId>
       <version>1.6.2</version>
     </dependency>
-
-    <!-- Dependency injection -->
-
-    <dependency>
-      <groupId>javax.inject</groupId>
-      <artifactId>javax.inject</artifactId>
-      <version>1</version>
-    </dependency>
-
 
     <!--Hibernate-->
     <dependency>
