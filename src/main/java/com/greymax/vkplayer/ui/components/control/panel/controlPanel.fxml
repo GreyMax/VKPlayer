@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.net.URL?>
 <?import javafx.geometry.*?>
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-
 <HBox maxHeight="60.0" minHeight="60.0" prefHeight="60.0"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.greymax.vkplayer.controllers.control.panel.ControlPanelController">

@@ -1,12 +1,10 @@
 package com.greymax.vkplayer.services.audio;
 
-import com.greymax.vkplayer.api.Api;
 import com.greymax.vkplayer.api.ApiMethods;
 import com.greymax.vkplayer.api.params.P;
 import com.greymax.vkplayer.objects.Album;
 import com.greymax.vkplayer.objects.Song;
 import com.greymax.vkplayer.objects.User;
-import com.greymax.vkplayer.services.auth.UserService;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,7 +19,6 @@ public class AudioService {
   private static final Logger logger = Logger.getLogger(AudioService.class);
 
   private static AudioService instance = null;
-  private UserService userService = UserService.getInstance();
   private List<Song> mySongsList;
   private List<Song> friendsSongsList;
   private List<Song> searchSongsList;
@@ -119,14 +116,14 @@ public class AudioService {
 
   public List<Album> getAlbums() {
     List<Album> result = new ArrayList<>();
-    try {
-      JSONArray albums = make(userService.getLoggedUser(), ApiMethods.Audio.GET_ALBUMS, new P());
-      if (albums.length() > 1)
-        for (int i = 1; i < albums.length(); i++)
-          result.add(new Album((JSONObject) albums.get(i)));
-    } catch (JSONException e) {
-      e.printStackTrace();
-    }
+//    try {
+//      JSONArray albums = make(userService.getLoggedUser(), ApiMethods.Audio.GET_ALBUMS, new P());
+//      if (albums.length() > 1)
+//        for (int i = 1; i < albums.length(); i++)
+//          result.add(new Album((JSONObject) albums.get(i)));
+//    } catch (JSONException e) {
+//      e.printStackTrace();
+//    }
     return  result;
   }
 
@@ -166,33 +163,33 @@ public class AudioService {
       return null;
 
     String result = null;
-    User loggedUser = userService.getLoggedUser();
-    try {
-      P params = new P("lyrics_id=" + song.getLyricsId());
-//      JSONObject jsonResult = new JSONObject(Api.make(loggedUser.getToken(), ApiMethods.Audio.GET_LYRICS, params));
-//      result = ((JSONObject) jsonResult.get("response")).getString("text");
-    } catch (Exception ex) {
-      logger.error("Can not get lyrics for song: " + song.getDisplayName(), ex);
-    }
+//    User loggedUser = userService.getLoggedUser();
+//    try {
+//      P params = new P("lyrics_id=" + song.getLyricsId());
+////      JSONObject jsonResult = new JSONObject(Api.make(loggedUser.getToken(), ApiMethods.Audio.GET_LYRICS, params));
+////      result = ((JSONObject) jsonResult.get("response")).getString("text");
+//    } catch (Exception ex) {
+//      logger.error("Can not get lyrics for song: " + song.getDisplayName(), ex);
+//    }
 
     return result;
   }
 
   public void editSongLyrics(Song song, String text) {
-    if (null != song.getLyricsId()) {
-      User loggedUser = userService.getLoggedUser();
-      try {
-        P params = new P("aid=" + song.getId()
-            + ",oid=" + song.getOwner_id()
-            + ",no_search=0"
-            + ",artist=" + song.getArtist()
-            + ",title=" + song.getTitle()
-            + ",text=" + text);
-//        Api.make(loggedUser.getToken(), ApiMethods.Audio.EDIT, params);
-      } catch (Exception ex) {
-        logger.error("Can not get lyrics for song: " + song.getDisplayName(), ex);
-      }
-    }
+//    if (null != song.getLyricsId()) {
+//      User loggedUser = userService.getLoggedUser();
+//      try {
+//        P params = new P("aid=" + song.getId()
+//            + ",oid=" + song.getOwner_id()
+//            + ",no_search=0"
+//            + ",artist=" + song.getArtist()
+//            + ",title=" + song.getTitle()
+//            + ",text=" + text);
+////        Api.make(loggedUser.getToken(), ApiMethods.Audio.EDIT, params);
+//      } catch (Exception ex) {
+//        logger.error("Can not get lyrics for song: " + song.getDisplayName(), ex);
+//      }
+//    }
   }
 
   public List<Song> getMySongsList() {

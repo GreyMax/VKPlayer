@@ -1,8 +1,12 @@
 package com.greymax.vkplayer;
 
-import com.greymax.vkplayer.auth.VkAuthScene;
-import com.greymax.vkplayer.ui.VKPlayerScene;
+import com.airhacks.afterburner.injection.Injector;
+import com.greymax.vkplayer.auth.AuthEventTypes;
+import com.greymax.vkplayer.auth.AuthPresenter;
+import com.greymax.vkplayer.auth.AuthView;
+import com.greymax.vkplayer.player.PlayerView;
 import javafx.application.Application;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
@@ -10,24 +14,29 @@ public class VKPlayer extends Application {
 
   @Override
   public void start(Stage stage) throws Exception {
-    ApplicationProperties applicationProperties = ApplicationProperties.getInstance();
-    stage.setTitle(applicationProperties.getString(Constants.APP.TITLE));
+    stage.setTitle(Constants.APP.TITLE);
     stage.setResizable(Boolean.TRUE);
-    stage.getIcons().add(new Image(applicationProperties.getString(Constants.APP.ICON)));
+    stage.getIcons().add(new Image(Constants.APP.ICON));
 
-    VkAuthScene vkAuthScene = new VkAuthScene();
-    vkAuthScene.addLoginListener(event -> {
-      Integer minHeight = applicationProperties.getInt(Constants.APP.MIN_HEIGHT);
-      Integer minWidth = applicationProperties.getInt(Constants.APP.MIN_WIDTH);
-      stage.setScene(new VKPlayerScene(minWidth, minHeight));
-      stage.setMinHeight(minHeight);
-      stage.setMinWidth(minWidth);
-      stage.sizeToScene();
+    AuthView authView = new AuthView();
+    Scene scene = new Scene(authView.getView(), Constants.APP.MIN_WIDTH, Constants.APP.MIN_HEIGHT);
+    AuthPresenter authViewPresenter = (AuthPresenter) authView.getPresenter();
+    authViewPresenter.setLoginHandler(event -> {
+      if (event.getEventType().equals(AuthEventTypes.SUCCESS.getValue())) {
+        PlayerView playerView = new PlayerView();
+        Scene playerScene = new Scene(playerView.getView());
+        stage.setScene(playerScene);
+      }
     });
 
-    stage.setScene(vkAuthScene);
+    stage.setScene(scene);
     stage.sizeToScene();
     stage.show();
+  }
+
+  @Override
+  public void stop() throws Exception {
+    Injector.forgetAll();
   }
 
   public static void main(String[] args) {

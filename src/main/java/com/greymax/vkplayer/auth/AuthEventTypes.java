@@ -2,13 +2,13 @@ package com.greymax.vkplayer.auth;
 
 import javafx.event.EventType;
 
-public enum VkAuthEvent {
+public enum AuthEventTypes {
   SUCCESS(new EventType("VK_AUTH_SUCCESS")),
   FAIL(new EventType("VK_AUTH_FAIL"));
 
   private EventType eventType;
 
-  VkAuthEvent(EventType eventType) {
+  AuthEventTypes(EventType eventType) {
     this.eventType = eventType;
   }
 

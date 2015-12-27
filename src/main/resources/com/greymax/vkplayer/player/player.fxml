@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Text?>
-<StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.greymax.vkplayer.controllers.main.MainController">
+<StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.greymax.vkplayer.player.PlayerPresenter">
   <VBox alignment="TOP_CENTER">
     <ControlPanel style="-fx-background-color: #5A7FA7;" maxHeight="60.0" minHeight="60.0" prefHeight="60.0"/>
     <SplitPane fx:id="splitPane" dividerPositions="0.3" focusTraversable="true" VBox.vgrow="ALWAYS" style="-fx-background-color: #d1d1d1">
@@ -33,7 +33,7 @@
                       </VBox>
                       <Button fx:id="addPlaylistButton" styleClass="playlist-add" onAction="#addPlaylist"
                               minWidth="16" maxWidth="16" prefWidth="16" minHeight="16" maxHeight="16" prefHeight="16"
-                          />
+                      />
                     </HBox>
                     <HBox VBox.vgrow="ALWAYS">
                       <ListView fx:id="playlistItems" HBox.hgrow="ALWAYS" focusTraversable="false">

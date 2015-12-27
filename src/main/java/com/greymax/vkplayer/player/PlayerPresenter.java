@@ -1,4 +1,4 @@
-package com.greymax.vkplayer.controllers.main;
+package com.greymax.vkplayer.player;
 
 import com.greymax.vkplayer.ui.components.playlist.Playlist;
 import com.greymax.vkplayer.ui.components.playlist.PlaylistEvent;
@@ -21,7 +21,7 @@ import javafx.scene.text.Text;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MainController implements Initializable, EventHandler {
+public class PlayerPresenter implements Initializable, EventHandler {
 
 //  private AudioService audioService = AudioService.getInstance();
 
