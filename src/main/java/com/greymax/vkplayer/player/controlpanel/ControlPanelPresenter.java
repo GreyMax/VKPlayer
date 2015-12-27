@@ -16,24 +16,15 @@ import java.util.ResourceBundle;
 
 public class ControlPanelPresenter implements Initializable {
 
-  @FXML
-  public Button prevButton;
-  @FXML
-  public Button playButton;
-  @FXML
-  public Button nextButton;
-  @FXML
-  public Slider seekSlider;
-  @FXML
-  public Label progressTimeLabel;
-  @FXML
-  public Button settingsButton;
-  @FXML
-  public Button repeatButton;
-  @FXML
-  public ToggleButton randomButton;
-  @FXML
-  public Slider volumeSlider;
+  @FXML public Button prevButton;
+  @FXML public Button playButton;
+  @FXML public Button nextButton;
+  @FXML public Slider seekSlider;
+  @FXML public Label progressTimeLabel;
+  @FXML public Button settingsButton;
+  @FXML public Button repeatButton;
+  @FXML public ToggleButton randomButton;
+  @FXML public Slider volumeSlider;
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {

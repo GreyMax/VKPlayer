@@ -25,23 +25,12 @@ import java.util.ResourceBundle;
 
 public class PlayerPresenter implements Initializable, EventHandler {
 
-  @FXML
-  public HBox controlPanelContainer;
-
-  @FXML
-  public SplitPane splitPane;
-
-  @FXML
-  public Button addPlaylistButton;
-
-  @FXML
-  public Text playlistTitle;
-
-  @FXML
-  public Text friendsTitle;
-
-  @FXML
-  public ListView playlistItems;
+  @FXML public HBox controlPanelContainer;
+  @FXML public SplitPane splitPane;
+  @FXML public Button addPlaylistButton;
+  @FXML public Text playlistTitle;
+  @FXML public Text friendsTitle;
+  @FXML public ListView playlistItems;
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {

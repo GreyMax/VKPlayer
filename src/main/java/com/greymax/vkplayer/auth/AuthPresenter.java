@@ -15,12 +15,8 @@ import java.util.ResourceBundle;
 public class AuthPresenter implements Initializable {
 
   private EventHandler<Event> loginHandler;
-
-  @Inject
-  private AuthService authService;
-
-  @FXML
-  public WebView webView;
+  @Inject private AuthService authService;
+  @FXML public WebView webView;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
