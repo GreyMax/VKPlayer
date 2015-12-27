@@ -24,8 +24,9 @@ public class VKPlayer extends Application {
     authViewPresenter.setLoginHandler(event -> {
       if (event.getEventType().equals(AuthEventTypes.SUCCESS.getValue())) {
         PlayerView playerView = new PlayerView();
-        Scene playerScene = new Scene(playerView.getView());
+        Scene playerScene = new Scene(playerView.getView(), Constants.APP.MIN_WIDTH, Constants.APP.MIN_HEIGHT);
         stage.setScene(playerScene);
+        stage.sizeToScene();
       }
     });
 

@@ -127,22 +127,6 @@
           <include>**/image/**</include>
         </includes>
       </resource>
-      <!--<resource>-->
-        <!--<targetPath>${project.build.outputDirectory}</targetPath>-->
-        <!--<filtering>false</filtering>-->
-        <!--<directory>${project.basedir}/src/main/resources</directory>-->
-        <!--<includes>-->
-          <!--<include>**/**</include>-->
-        <!--</includes>-->
-      <!--</resource>-->
-      <!--<resource>-->
-        <!--<targetPath>${project.build.outputDirectory}/com/greymax/vkplayer/ui</targetPath>-->
-        <!--<filtering>false</filtering>-->
-        <!--<directory>${project.build.sourceDirectory}/com/greymax/vkplayer/ui</directory>-->
-        <!--<includes>-->
-          <!--<include>**/*.fxml</include>-->
-        <!--</includes>-->
-      <!--</resource>-->
     </resources>
   </build>
 
