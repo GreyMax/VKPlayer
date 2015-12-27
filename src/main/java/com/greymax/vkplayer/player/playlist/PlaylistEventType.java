@@ -1,4 +1,4 @@
-package com.greymax.vkplayer.ui.components.playlist;
+package com.greymax.vkplayer.player.playlist;
 
 import javafx.event.EventType;
 

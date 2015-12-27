@@ -1,5 +1,8 @@
 package com.greymax.vkplayer.ui.components.playlist;
 
+import com.greymax.vkplayer.player.playlist.PlaylistEvent;
+import com.greymax.vkplayer.player.playlist.PlaylistEventType;
+import com.greymax.vkplayer.player.playlist.PlaylistType;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -23,6 +26,7 @@ import javafx.scene.text.Text;
 import java.util.ArrayList;
 import java.util.List;
 
+@Deprecated
 public class Playlist extends HBox implements EventHandler {
 
   public static final String REFRESH_BUTTON = "refresh";
@@ -97,7 +101,7 @@ public class Playlist extends HBox implements EventHandler {
   }
 
   private void init() {
-    Image image = new Image(getClass().getClassLoader().getResource("image/playlist.png").toExternalForm());
+    Image image = new Image(getClass().getClassLoader().getResource("com/greymax/vkplayer/player/playlistbox/images/playlist.png").toExternalForm());
     ImageView imageView = new ImageView(image);
     imageView.setFitWidth(12);
     imageView.setFitHeight(12);
@@ -150,7 +154,6 @@ public class Playlist extends HBox implements EventHandler {
     removeButtonWrapper.setAlignment(Pos.CENTER);
     removeButtonWrapper.getChildren().add(removeButton);
 
-    getStylesheets().add(getClass().getClassLoader().getResource("css/components/Playlist.css").toExternalForm());
     getStyleClass().remove("new-playlist");
     setPadding(new Insets(0, 0, 0, 10));
     setSpacing(3.0);

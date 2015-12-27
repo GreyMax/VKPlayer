@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.greymax.vkplayer.ui.components.playlist.Playlist?>
+<?import com.greymax.vkplayer.player.playlistbox.PlaylistBox?>
 <?import com.greymax.vkplayer.ui.components.searchbox.SearchBox?>
 <?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
@@ -39,8 +39,8 @@
                       <ListView fx:id="playlistItems" HBox.hgrow="ALWAYS" focusTraversable="false">
                         <items>
                           <FXCollections fx:factory="observableArrayList">
-                            <Playlist playlistName="My Music" type="MY_AUDIO" VBox.vgrow="NEVER" />
-                            <Playlist playlistName="Suggested Music" type="SUGGESTED" VBox.vgrow="NEVER" />
+                            <PlaylistBox playlistName="My Music" playlistType="MY_AUDIO" VBox.vgrow="NEVER" />
+                            <PlaylistBox playlistName="Suggested Music" playlistType="SUGGESTED" VBox.vgrow="NEVER" />
                           </FXCollections>
                         </items>
                       </ListView>

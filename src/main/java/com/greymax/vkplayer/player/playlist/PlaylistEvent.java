@@ -1,5 +1,6 @@
-package com.greymax.vkplayer.ui.components.playlist;
+package com.greymax.vkplayer.player.playlist;
 
+import com.greymax.vkplayer.ui.components.playlist.Playlist;
 import javafx.event.Event;
 import javafx.event.EventType;
 
@@ -7,7 +8,7 @@ public class PlaylistEvent extends Event {
 
   private Playlist targetPlaylist;
 
-  public PlaylistEvent(EventType eventType, Playlist target) {
+  public PlaylistEvent(EventType<Event> eventType, Playlist target) {
     super(eventType);
     this.targetPlaylist = target;
   }

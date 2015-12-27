@@ -1,4 +1,4 @@
-package com.greymax.vkplayer.ui.components.playlist;
+package com.greymax.vkplayer.player.playlist;
 
 public enum PlaylistType {
   MY_AUDIO,

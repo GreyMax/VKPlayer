@@ -1,10 +1,11 @@
 package com.greymax.vkplayer.player;
 
 import com.greymax.vkplayer.player.controlpanel.ControlPanelView;
+import com.greymax.vkplayer.player.playlistbox.PlaylistBox;
 import com.greymax.vkplayer.ui.components.playlist.Playlist;
-import com.greymax.vkplayer.ui.components.playlist.PlaylistEvent;
-import com.greymax.vkplayer.ui.components.playlist.PlaylistEventType;
-import com.greymax.vkplayer.ui.components.playlist.PlaylistType;
+import com.greymax.vkplayer.player.playlist.PlaylistEvent;
+import com.greymax.vkplayer.player.playlist.PlaylistEventType;
+import com.greymax.vkplayer.player.playlist.PlaylistType;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -30,12 +31,12 @@ public class PlayerPresenter implements Initializable, EventHandler {
   @FXML public Button addPlaylistButton;
   @FXML public Text playlistTitle;
   @FXML public Text friendsTitle;
-  @FXML public ListView playlistItems;
+  @FXML public ListView<PlaylistBox> playlistItems;
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
     ControlPanelView controlPanelView = new ControlPanelView();
-    controlPanelContainer.getChildren().add(controlPanelView.getView());
+    controlPanelView.getViewAsync(controlPanelContainer.getChildren()::add);
 
     DropShadow ds = new DropShadow();
     ds.setOffsetY(3.0f);
@@ -48,16 +49,16 @@ public class PlayerPresenter implements Initializable, EventHandler {
 //    for (Album album : audioService.getAlbums())
 //      playlistItems.getItems().add(new Playlist(PlaylistType.ALBUM, album.getTitle()));
 
-    for (Object playlist : playlistItems.getItems())
-      ((Playlist) playlist).addActionListener(this);
+//    for (PlaylistBox playlist : playlistItems.getItems())
+//      playlist.addActionListener(this);
   }
 
   public void addPlaylist(ActionEvent actionEvent) {
-    if (!((Playlist)playlistItems.getItems().get(playlistItems.getItems().size() - 1)).getStyleClass().contains("new-playlist")) {
-      Playlist playlist = new Playlist(PlaylistType.NEW_ALBUM, playlistItems);
-      playlist.addActionListener(this);
-      playlistItems.getItems().add(playlist);
-    }
+//    if (!(playlistItems.getItems().get(playlistItems.getItems().size() - 1)).getStyleClass().contains("new-playlist")) {
+//      Playlist playlist = new Playlist(PlaylistType.NEW_ALBUM, playlistItems);
+//      playlist.addActionListener(this);
+//      playlistItems.getItems().add(playlist);
+//    }
   }
 
   @Override
