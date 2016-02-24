@@ -1,3 +1,16 @@
+.playlist-icon {
+  -fx-min-height: 20;
+  -fx-max-height: 20;
+  -fx-pref-height: 20;
+  -fx-min-width: 20;
+  -fx-max-width: 20;
+  -fx-pref-width: 20;
+  -fx-background-image: url("images/playlist.png");
+  -fx-background-position: center;
+  -fx-background-repeat: no-repeat;
+  -fx-background-size: 12 12;
+}
+
 .playlist-name {
   -fx-font-family: "Arial";
   -fx-font-size: 12;
@@ -9,43 +22,43 @@
   -fx-background-color: #d1d1d1;
   -fx-border-color: #d1d1d1;
   -fx-cursor: hand;
-  -fx-background-image: url("/com/greymax/vkplayer/player/playlistbox/images/list-add.png");
+  -fx-background-size: 12;
+  -fx-background-repeat: no-repeat;
+  -fx-background-image: url("images/list-add.png");
 }
 
 .playlist-add:hover {
   /*-fx-border-color: #548cff;*/
+  -fx-background-image: url("images/list-add-over.png");
+}
+
+.playlist-refresh-button,
+.playlist-remove-button {
   -fx-cursor: hand;
-  -fx-background-image: url("/com/greymax/vkplayer/player/playlistbox/images/list-add-over.png");
+  -fx-background-color: transparent;
+  -fx-background-size: 12;
+  -fx-background-repeat: no-repeat;
+  -fx-min-width: 12;
+  -fx-max-width: 12;
+  -fx-pref-width: 12;
+  -fx-min-height: 12;
+  -fx-max-height: 12;
+  -fx-pref-height: 12;
+  visibility: hidden;
 }
 
 .playlist-refresh-button {
-  -fx-cursor: hand;
-  -fx-background-color: null;
-  -fx-background-size: 12;
-  -fx-background-repeat: no-repeat;
-  -fx-background-image: url("/com/greymax/vkplayer/player/playlistbox/images/reload.png");
+  -fx-background-image: url("images/reload.png");
 }
 
 .playlist-refresh-button:hover {
-  -fx-cursor: hand;
-  -fx-background-color: null;
-  -fx-background-size: 12;
-  -fx-background-repeat: no-repeat;
-  -fx-background-image: url("/com/greymax/vkplayer/player/playlistbox/images/reload-over.png");
+  -fx-background-image: url("images/reload-over.png");
 }
 
 .playlist-remove-button {
-  -fx-cursor: hand;
-  -fx-background-color: null;
-  -fx-background-size: 12;
-  -fx-background-repeat: no-repeat;
-  -fx-background-image: url("/com/greymax/vkplayer/player/playlistbox/images/delete.png");
+  -fx-background-image: url("images/delete.png");
 }
 
 .playlist-remove-button:hover {
-  -fx-cursor: hand;
-  -fx-background-color: null;
-  -fx-background-size: 12;
-  -fx-background-repeat: no-repeat;
-  -fx-background-image: url("/com/greymax/vkplayer/player/playlistbox/images/delete-over.png");
+  -fx-background-image: url("images/delete-over.png");
 }

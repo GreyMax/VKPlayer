@@ -17,6 +17,8 @@ public class VKPlayer extends Application {
     stage.setTitle(Constants.APP.TITLE);
     stage.setResizable(Boolean.TRUE);
     stage.getIcons().add(new Image(Constants.APP.ICON));
+    stage.setMinHeight(Constants.APP.MIN_HEIGHT);
+    stage.setMinWidth(Constants.APP.MIN_WIDTH);
 
     AuthView authView = new AuthView();
     Scene scene = new Scene(authView.getView(), Constants.APP.MIN_WIDTH, Constants.APP.MIN_HEIGHT);

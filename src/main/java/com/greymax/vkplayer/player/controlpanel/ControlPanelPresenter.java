@@ -1,5 +1,6 @@
 package com.greymax.vkplayer.player.controlpanel;
 
+import com.greymax.vkplayer.ui.components.UIUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -19,6 +20,7 @@ public class ControlPanelPresenter implements Initializable {
   @FXML public Button prevButton;
   @FXML public Button playButton;
   @FXML public Button nextButton;
+  @FXML public Label songTitle;
   @FXML public Slider seekSlider;
   @FXML public Label progressTimeLabel;
   @FXML public Button settingsButton;
@@ -36,35 +38,28 @@ public class ControlPanelPresenter implements Initializable {
     seekSlider.setFocusTraversable(false);
     seekSlider.setMin(0);
     seekSlider.setMax(1);
+
+    // TODO: hardcoded
+    songTitle.setText("Test song");
+    progressTimeLabel.setText("5:50");
   }
 
   @FXML
   public void play(ActionEvent actionEvent) {
-    ImageView imageView = new ImageView(new Image(getClass().getClassLoader().getResource("com/greymax/vkplayer/player/controlpanel/images/pause_icon.png").toExternalForm()));
-    imageView.setFitHeight(20.0d);
-    imageView.setFitWidth(20.0d);
-    playButton.setGraphic(imageView);
+    UIUtils.toggleClass(playButton, "playing");
+  }
+
+  public void prev(ActionEvent actionEvent) {
+
+  }
+
+  public void next(ActionEvent actionEvent) {
+
   }
 
   @FXML
   public void repeat(ActionEvent actionEvent) {
-    if (repeatButton.getStyleClass().contains("round-button-repeat-selected")) {
-      repeatButton.getStyleClass().remove("round-button-repeat-selected");
-      repeatButton.getStyleClass().add("round-button-repeat-selected1");
-      ImageView imageView = new ImageView(new Image(getClass().getClassLoader().getResource("com/greymax/vkplayer/player/controlpanel/images/repeat_icon_one_inverse.png").toExternalForm()));
-      imageView.setFitHeight(16.0d);
-      imageView.setFitWidth(16.0d);
-      repeatButton.setGraphic(imageView);
-    }
-    else if (repeatButton.getStyleClass().contains("round-button-repeat-selected1")) {
-      repeatButton.getStyleClass().remove("round-button-repeat-selected1");
-      ImageView imageView = new ImageView(new Image(getClass().getClassLoader().getResource("com/greymax/vkplayer/player/controlpanel/images/repeat_icon_white.png").toExternalForm()));
-      imageView.setFitHeight(16.0d);
-      imageView.setFitWidth(16.0d);
-      repeatButton.setGraphic(imageView);
-    }
-    else
-      repeatButton.getStyleClass().add("round-button-repeat-selected");
+    UIUtils.addClassFromQueue(repeatButton, "repeat-all", "repeat-one");
   }
 
   @FXML

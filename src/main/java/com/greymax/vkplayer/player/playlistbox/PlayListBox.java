@@ -1,9 +1,9 @@
 package com.greymax.vkplayer.player.playlistbox;
 
 import com.greymax.vkplayer.player.playlist.PlaylistType;
-import javafx.scene.Parent;
+import javafx.scene.layout.HBox;
 
-public class PlaylistBox extends Parent {
+public class PlaylistBox extends HBox {
 
   private PlaylistBoxView playlistBoxView;
   private PlaylistType playlistType;

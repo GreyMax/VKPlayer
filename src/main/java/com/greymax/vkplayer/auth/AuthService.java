@@ -39,7 +39,13 @@ public final class AuthService {
 
   public void createConnection(String url) {
     AccessGrant accessGrant = new AccessGrant(getTokenFromUrl(url));
-    connection = connectionFactory.createConnection(accessGrant);
+    try {
+      connection = connectionFactory.createConnection(accessGrant);
+    } catch (Exception ex) {
+      logger.error("Could not login user", ex);
+      // TODO: show error dialog!!!
+      throw new AuthException();
+    }
     logger.info(String.format("User %s successfully logged in.", connection.getDisplayName()));
   }
 

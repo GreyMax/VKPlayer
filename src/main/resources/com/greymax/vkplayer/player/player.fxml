@@ -10,12 +10,12 @@
 
 <StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.greymax.vkplayer.player.PlayerPresenter">
   <VBox alignment="TOP_CENTER">
-    <HBox fx:id="controlPanelContainer" style="-fx-background-color: #5A7FA7;" maxHeight="60.0" minHeight="60.0" prefHeight="60.0"/>
-    <SplitPane fx:id="splitPane" dividerPositions="0.3" focusTraversable="true" VBox.vgrow="ALWAYS" style="-fx-background-color: #d1d1d1">
+    <HBox fx:id="controlPanelContainer" />
+    <SplitPane fx:id="splitPane" dividerPositions="0.3" focusTraversable="true" VBox.vgrow="ALWAYS" styleClass="player-main-window">
       <items>
 
         <!-- Playlists & Friends -->
-        <HBox minHeight="200.0" minWidth="150.0" SplitPane.resizableWithParent="false">
+        <HBox styleClass="player-left-bar" SplitPane.resizableWithParent="false">
           <VBox HBox.hgrow="ALWAYS" SplitPane.resizableWithParent="false">
             <SplitPane dividerPositions="0.4" focusTraversable="true" orientation="VERTICAL" VBox.vgrow="ALWAYS" style="-fx-background-color: #d1d1d1;">
               <items>
@@ -31,16 +31,15 @@
                           <Text fx:id="playlistTitle" styleClass="playlist-title" text="PLAYLISTS" style="-fx-background-color: transparent"/>
                         </children>
                       </VBox>
-                      <Button fx:id="addPlaylistButton" styleClass="playlist-add" onAction="#addPlaylist"
-                              minWidth="16" maxWidth="16" prefWidth="16" minHeight="16" maxHeight="16" prefHeight="16"
-                      />
+                      <Button fx:id="addPlaylistButton" styleClass="playlist-add" onAction="#addPlaylist" visible="false"
+                              minWidth="16" maxWidth="16" prefWidth="16" minHeight="16" maxHeight="16" prefHeight="16" />
                     </HBox>
                     <HBox VBox.vgrow="ALWAYS">
                       <ListView fx:id="playlistItems" HBox.hgrow="ALWAYS" focusTraversable="false">
                         <items>
                           <FXCollections fx:factory="observableArrayList">
-                            <PlaylistBox playlistName="My Music" playlistType="MY_AUDIO" VBox.vgrow="NEVER" />
-                            <PlaylistBox playlistName="Suggested Music" playlistType="SUGGESTED" VBox.vgrow="NEVER" />
+                            <PlaylistBox playlistName="My Music" playlistType="MY_AUDIO" HBox.hgrow="ALWAYS" />
+                            <PlaylistBox playlistName="Suggested Music" playlistType="SUGGESTED" HBox.hgrow="ALWAYS" />
                           </FXCollections>
                         </items>
                       </ListView>
@@ -75,7 +74,7 @@
         </HBox>
 
         <!-- Songs -->
-        <AnchorPane fx:id="secondPane" minHeight="200.0" minWidth="200.0" />
+        <AnchorPane styleClass="player-right-bar" fx:id="secondPane" />
       </items>
     </SplitPane>
   </VBox>

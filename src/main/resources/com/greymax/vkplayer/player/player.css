@@ -1,0 +1,13 @@
+.player-main-window {
+  -fx-background-color: #d1d1d1;
+}
+
+.player-left-bar {
+  -fx-min-height: 200;
+  -fx-min-width: 200;
+}
+
+.player-right-bar {
+  -fx-min-height: 200;
+  -fx-min-width: 200;
+}
