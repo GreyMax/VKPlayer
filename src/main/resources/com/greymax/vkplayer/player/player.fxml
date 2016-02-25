@@ -38,8 +38,8 @@
                       <ListView fx:id="playlistItems" HBox.hgrow="ALWAYS" focusTraversable="false">
                         <items>
                           <FXCollections fx:factory="observableArrayList">
-                            <PlaylistBox playlistName="My Music" playlistType="MY_AUDIO" HBox.hgrow="ALWAYS" />
-                            <PlaylistBox playlistName="Suggested Music" playlistType="SUGGESTED" HBox.hgrow="ALWAYS" />
+                            <PlaylistBox playlistName="Моя музика" playlistType="MY_AUDIO" HBox.hgrow="ALWAYS" />
+                            <PlaylistBox playlistName="Рекомендації" playlistType="RECOMMENDED" HBox.hgrow="ALWAYS" />
                           </FXCollections>
                         </items>
                       </ListView>
@@ -48,6 +48,8 @@
                 </HBox>
 
                 <!-- Friends -->
+                <!-- TODO: not supported -->
+                <!--
                 <HBox>
                   <VBox HBox.hgrow="ALWAYS">
                     <HBox VBox.vgrow="NEVER">
@@ -68,6 +70,7 @@
                     </HBox>
                   </VBox>
                 </HBox>
+                -->
               </items>
             </SplitPane>
           </VBox>

@@ -14,5 +14,5 @@
     <Text fx:id="playlistName" styleClass="playlist-name" text="Playlist"/>
   </HBox>
   <Button fx:id="refreshButton" styleClass="playlist-refresh-button" focusTraversable="false" onAction="#refreshPlaylist" />
-  <Button fx:id="removeButton" styleClass="playlist-remove-button" focusTraversable="false" onAction="#removePlaylist" />
+  <!--<Button fx:id="removeButton" styleClass="playlist-remove-button" focusTraversable="false" onAction="#removePlaylist" />-->
 </HBox>

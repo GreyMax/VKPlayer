@@ -59,7 +59,7 @@ public class Playlist extends HBox implements EventHandler {
   public Playlist(PlaylistType playlistType, String playlistName) {
     this(playlistName);
     this.type = playlistType;
-    if (type.equals(PlaylistType.MY_AUDIO) || type.equals(PlaylistType.SUGGESTED))
+    if (type.equals(PlaylistType.MY_AUDIO) || type.equals(PlaylistType.RECOMMENDED))
       getChildren().add(refreshButton);
     if (type.equals(PlaylistType.ALBUM)) {
       getChildren().add(refreshButton);
@@ -169,7 +169,7 @@ public class Playlist extends HBox implements EventHandler {
 
   public void setType(PlaylistType type) {
     this.type = type;
-    if (type.equals(PlaylistType.MY_AUDIO) || type.equals(PlaylistType.SUGGESTED))
+    if (type.equals(PlaylistType.MY_AUDIO) || type.equals(PlaylistType.RECOMMENDED))
       getChildren().add(refreshButtonWrapper);
     if (type.equals(PlaylistType.ALBUM)) {
       getChildren().add(refreshButtonWrapper);

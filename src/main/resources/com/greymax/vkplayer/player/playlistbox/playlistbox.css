@@ -44,7 +44,7 @@
   -fx-min-height: 12;
   -fx-max-height: 12;
   -fx-pref-height: 12;
-  visibility: hidden;
+  /*visibility: hidden;*/
 }
 
 .playlist-refresh-button {

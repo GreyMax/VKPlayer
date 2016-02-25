@@ -1,4 +1,4 @@
-package com.greymax.vkplayer.ui.components;
+package com.greymax.vkplayer.ui;
 
 import javafx.collections.ObservableList;
 import javafx.scene.control.Control;

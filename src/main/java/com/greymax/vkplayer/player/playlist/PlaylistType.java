@@ -2,7 +2,7 @@ package com.greymax.vkplayer.player.playlist;
 
 public enum PlaylistType {
   MY_AUDIO,
-  SUGGESTED,
+  RECOMMENDED,
   ALBUM,
   NEW_ALBUM;
 }

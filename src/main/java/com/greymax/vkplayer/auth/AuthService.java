@@ -1,5 +1,7 @@
 package com.greymax.vkplayer.auth;
 
+import com.greymax.vkplayer.VKPlayerPreferences;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.oauth2.AccessGrant;
@@ -9,25 +11,26 @@ import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.social.vkontakte.api.VKontakte;
 import org.springframework.social.vkontakte.connect.VKontakteConnectionFactory;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.ResourceBundle;
 
 public final class AuthService {
   private static Logger logger = Logger.getLogger(AuthService.class);
 
   public static final String VK_AUTH_ACCESS_TOKEN_KEY = "access_token";
+  public static final String VK_AUTH_CLIENT_ID = "3049094";
 
-  private VKontakteConnectionFactory connectionFactory;
+  private VKontakteConnectionFactory connectionFactory ;
   private Connection<VKontakte> connection;
+
+  public AuthService() {
+    this.connectionFactory = new VKontakteConnectionFactory(VK_AUTH_CLIENT_ID, StringUtils.EMPTY);
+  }
 
   public Connection<VKontakte> getConnection() {
     return connection;
   }
 
   public String buildAuthorizeUrl(ResourceBundle rb) {
-    connectionFactory = new VKontakteConnectionFactory(rb.getString("clientId"), rb.getString("clientSecret"));
     OAuth2Operations oauthOperations = connectionFactory.getOAuthOperations();
     OAuth2Parameters params = new OAuth2Parameters();
     params.setRedirectUri(rb.getString("redirectUrl"));
@@ -37,8 +40,8 @@ public final class AuthService {
     return oauthOperations.buildAuthorizeUrl(GrantType.IMPLICIT_GRANT, params);
   }
 
-  public void createConnection(String url) {
-    AccessGrant accessGrant = new AccessGrant(getTokenFromUrl(url));
+  public void createConnection(String token) {
+    AccessGrant accessGrant = new AccessGrant(token);
     try {
       connection = connectionFactory.createConnection(accessGrant);
     } catch (Exception ex) {
@@ -46,17 +49,23 @@ public final class AuthService {
       // TODO: show error dialog!!!
       throw new AuthException();
     }
+    VKPlayerPreferences.setToken(token);
     logger.info(String.format("User %s successfully logged in.", connection.getDisplayName()));
   }
 
-  private String getTokenFromUrl(String url) {
-    String queryString = url.substring(url.indexOf("#") + 1);
-    Map<String, String> queryParams = new HashMap<>();
-    Arrays.asList(queryString.split("&")).stream().forEach(param -> {
-      String[] keyValuePair = param.split("=");
-      queryParams.put(keyValuePair[0], keyValuePair[1]);
-    });
+  public boolean isAuthorized() {
+    if (connection != null)
+      return connection.getApi().isAuthorized();
 
-    return queryParams.get(VK_AUTH_ACCESS_TOKEN_KEY);
+    String token = VKPlayerPreferences.getToken();
+    if (token == null)
+      return Boolean.FALSE;
+
+    try {
+      createConnection(token);
+      return connection.getApi().isAuthorized();
+    } catch (AuthException ex) { // Do nothing }
+      return Boolean.FALSE;
+    }
   }
 }
