@@ -1,17 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXSlider?>
+<?import com.jfoenix.controls.JFXToggleNode?>
+<?import com.jfoenix.*?>
+<?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<HBox xmlns:fx="http://javafx.com/fxml" styleClass="control-panel" HBox.hgrow="ALWAYS"
+<?import com.jfoenix.controls.JFXRippler?>
+<?import com.jfoenix.controls.JFXHamburger?>
+<?import com.jfoenix.controls.JFXPopup?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<HBox xmlns:fx="http://javafx.com/fxml" styleClass="control-panel" HBox.hgrow="ALWAYS" fx:id="controlPanel"
       fx:controller="com.greymax.vkplayer.player.controlpanel.ControlPanelPresenter">
 
   <!--Play, pause, prev, next-->
   <VBox alignment="BOTTOM_LEFT" styleClass="control-panel-left">
     <HBox alignment="CENTER" spacing="10.0">
-      <Button fx:id="prevButton" styleClass="round-button-prev" onAction="#prev" />
-      <Button fx:id="playButton" styleClass="round-button-play" onAction="#play" />
-      <Button fx:id="nextButton" styleClass="round-button-next" onAction="#next" />
+      <JFXRoundButton fx:id="prevButton" buttonType="RAISED" styleClass="round-button-prev" onAction="#prev" />
+      <JFXRoundButton fx:id="playButton" buttonType="RAISED" styleClass="round-button-play" onAction="#play" />
+      <JFXRoundButton fx:id="nextButton" buttonType="RAISED" styleClass="round-button-next" onAction="#next" />
     </HBox>
   </VBox>
 
@@ -27,7 +36,7 @@
       <padding>
         <Insets right="5"/>
       </padding>
-      <Slider fx:id="seekSlider" styleClass="progress-slider" HBox.hgrow="ALWAYS" />
+      <JFXSlider fx:id="seekSlider" HBox.hgrow="ALWAYS" />
       <Label fx:id="progressTimeLabel" styleClass="progress-time" />
     </HBox>
   </VBox>
@@ -38,32 +47,48 @@
     <padding>
       <Insets bottom="10" left="5" right="5"/>
     </padding>
-    <HBox spacing="5">
-      <Button fx:id="repeatButton" styleClass="round-button-repeat" onAction="#repeat" />
-      <ToggleButton fx:id="randomButton" styleClass="round-button-random" onAction="#random" />
+    <HBox spacing="10">
+      <JFXToggleNode fx:id="repeatButton" styleClass="round-button-repeat" onAction="#repeat">
+        <MaterialIconView/>
+      </JFXToggleNode>
+      <JFXToggleNode fx:id="randomButton" styleClass="round-button-random" onAction="#random">
+        <MaterialIconView/>
+      </JFXToggleNode>
     </HBox>
     <HBox spacing="5">
       <children>
-        <Button styleClass="volume-min-icon" onAction="#mute" />
+        <JFXRoundButton buttonType="RAISED" styleClass="round-button-volume-min" onAction="#mute" />
         <HBox>
           <HBox.margin><Insets top="3"/></HBox.margin>
           <children>
-            <Slider fx:id="volumeSlider" styleClass="volume-slider" />
+            <JFXSlider fx:id="volumeSlider" />
           </children>
         </HBox>
-        <Button styleClass="volume-max-icon" onAction="#maxVolume" />
+        <JFXRoundButton buttonType="RAISED" styleClass="round-button-volume-max" onAction="#maxVolume" />
       </children>
     </HBox>
   </VBox>
 
-  <!--Separator-->
-  <Separator styleClass="settings-separator" halignment="CENTER" orientation="VERTICAL" />
-
   <!--Settings-->
   <VBox alignment="BOTTOM_CENTER" styleClass="control-panel-settings">
-    <padding>
-      <Insets right="3" bottom="10"/>
-    </padding>
-    <Button fx:id="settingsButton" styleClass="round-button-settings" />
+    <JFXRippler fx:id="optionsRippler" maskType="CIRCLE">
+      <StackPane fx:id="optionsBurger" onMouseClicked="#showOptionsPopup">
+        <JFXHamburger styleClass="jfx-options-burger" />
+      </StackPane>
+    </JFXRippler>
   </VBox>
+  <JFXPopup fx:id="optionsPopup">
+    <content>
+      <JFXListView styleClass="option-list-view">
+        <Label onMouseClicked="#about">
+          About
+          <graphic><MaterialDesignIconView glyphName="INFORMATION" size="20"/></graphic>
+        </Label>
+        <Label onMouseClicked="#exit">
+          Exit
+          <graphic><MaterialIconView glyphName="REPLY" size="20"/></graphic>
+        </Label>
+      </JFXListView>
+    </content>
+  </JFXPopup>
 </HBox>

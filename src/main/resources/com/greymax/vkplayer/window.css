@@ -1,0 +1,64 @@
+/*******************************************************************************
+*                                                                              *
+* JFX Decorator                                                                *
+*                                                                              *
+*******************************************************************************/
+
+.jfx-decorator .jfx-decorator-buttons-container{
+  -fx-background-color: -fx-bg-dark-primary-color;
+}
+.jfx-decorator .resize-border{
+  -fx-border-color: -fx-bg-dark-primary-color;
+  -fx-border-width: 0 4 4 4;
+}
+
+/*******************************************************************************
+*                                                                              *
+* JFX List View                                                                *
+*                                                                              *
+*******************************************************************************/
+
+.jfx-list-cell-content-container {
+  -fx-alignment: center-left;
+}
+.jfx-list-cell-container > .label {
+  -fx-text-fill: -fx-primary-text-color ;
+}
+
+.jfx-list-cell:odd:selected .jfx-list-cell-container,
+.jfx-list-cell:even:selected .jfx-list-cell-container {
+  -fx-background-color: rgba(0.0,0.0,255.0,0.2);
+}
+
+.jfx-list-cell {
+  -fx-background-insets: 0.0 ;
+  -fx-text-fill: -fx-primary-text-color;
+}
+.jfx-list-cell:odd,
+.jfx-list-cell:even {
+  -fx-background-color: -fx-text-primary-color;
+}
+.jfx-list-cell:filled:hover {
+  -fx-text-fill: -fx-primary-text-color;
+}
+
+.jfx-list-cell .jfx-rippler {
+  -fx-rippler-fill: -fx-bg-light-primary-color;
+}
+
+.jfx-list-view {
+  -fx-background-insets: 0.0;
+  -fx-cell-horizontal-margin: 0.0;
+  -fx-cell-vertical-margin: 5.0;
+  -fx-vertical-gap : 10.0;
+  -fx-expanded : false;
+  -fx-font-family: Roboto;
+}
+
+.jfx-list-view.option-list-view {
+  -fx-pref-width: 160px;
+}
+
+.jfx-list-view.option-list-view .glyph-icon {
+  -fx-fill: -fx-bg-accent-color;
+}

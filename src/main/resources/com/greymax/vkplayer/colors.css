@@ -1,0 +1,10 @@
+* {
+  -fx-bg-dark-primary-color: #303F9F;
+  -fx-bg-default-primary-color: #3F51B5;
+  -fx-bg-light-primary-color: #C5CAE9;
+  -fx-bg-accent-color: #448AFF;
+  -fx-text-primary-color: #FFFFFF;
+  -fx-primary-text-color: #212121;
+  -fx-secondary-text-color: #727272;
+  -fx-divider-color: #B6B6B6;
+}

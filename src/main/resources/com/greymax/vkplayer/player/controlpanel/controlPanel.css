@@ -1,8 +1,8 @@
 .control-panel {
-  -fx-min-height: 60;
-  -fx-max-height: 60;
-  -fx-pref-height: 60;
-  -fx-background-color: #5A7FA7;
+  -fx-min-height: 75;
+  -fx-max-height: 75;
+  -fx-pref-height: 75;
+  -fx-background-color: -fx-bg-default-primary-color;
 }
 
 .control-panel .control-panel-left {
@@ -24,17 +24,11 @@
   -fx-pref-width: 60;
 }
 
+/* PLAYER BUTTONS */
+
 .round-button-play {
   -fx-background-radius: 36px;
-  -fx-border-radius: 36px;
-  -fx-border-insets: 1px;
-  -fx-border-color: white;
-  -fx-background-insets: 2;
-  -fx-text-fill: white;
-  -fx-background-size: 20px 20px;
-  -fx-background-repeat: no-repeat;
-  -fx-background-position: center;
-  -fx-background-image: url("images/play_icon.png");
+  -fx-background-color: -fx-bg-accent-color;
   -fx-min-height: 36;
   -fx-max-height: 36;
   -fx-pref-height: 36;
@@ -44,21 +38,10 @@
   -fx-cursor: hand;
 }
 
-.round-button-play.playing {
-  -fx-background-image: url("images/pause_icon.png");
-}
-
 .round-button-prev,
 .round-button-next {
-  -fx-background-radius: 24px;
-  -fx-border-radius: 24px;
-  -fx-border-insets: 1px;
-  -fx-border-color: white;
-  -fx-background-insets: 2;
-  -fx-text-fill: white;
-  -fx-background-size: 12px 12px;
-  -fx-background-repeat: no-repeat;
-  -fx-background-position: center;
+  -fx-background-radius: 30;
+  -fx-background-color: -fx-bg-accent-color;
   -fx-min-height: 30;
   -fx-max-height: 30;
   -fx-pref-height: 30;
@@ -68,42 +51,12 @@
   -fx-cursor: hand;
 }
 
-.round-button-prev {
-  -fx-background-image: url("images/prev_icon.png");
-}
-
-.round-button-next {
-  -fx-background-image: url("images/next_icon.png");
-}
-
-.round-button-settings {
-  -fx-background-radius: 40px;
-  -fx-border-radius: 40px;
-  -fx-border-insets: 1px;
-  -fx-border-color: white;
-  -fx-background-insets: 2;
-  -fx-text-fill: white;
-  -fx-background-image: url("images/settings_button.png");
-  -fx-background-size: 20 20;
-  -fx-background-repeat: no-repeat;
-  -fx-background-position: center;
-  -fx-min-height: 36;
-  -fx-max-height: 36;
-  -fx-pref-height: 36;
-  -fx-min-width: 36;
-  -fx-max-width: 36;
-  -fx-pref-width: 36;
-  -fx-cursor: hand;
-}
-
 .round-button-repeat,
-.round-button-random {
-  -fx-background-radius: 20px;
-  -fx-border-radius: 20px;
-  -fx-background-color: #5A7FA7;
-  -fx-background-size: 16px 16px;
-  -fx-background-repeat: no-repeat;
-  -fx-background-position: center;
+.round-button-random,
+.round-button-volume-max,
+.round-button-volume-min {
+  -fx-background-color: transparent;
+  -fx-background-radius: 20;
   -fx-min-height: 20;
   -fx-max-height: 20;
   -fx-pref-height: 20;
@@ -113,64 +66,106 @@
   -fx-cursor: hand;
 }
 
-.round-button-repeat {
-  -fx-background-image: url("images/repeat_icon_white.png");
+/* Buttons mask */
+
+.jfx-button .jfx-rippler,
+.jfx-toggle-node .jfx-rippler {
+  -fx-rippler-fill: -fx-bg-light-primary-color;
 }
 
-.round-button-random {
-  -fx-background-image: url("images/random_icon_white.png");
+/* Buttons glyphs */
+
+.jfx-button .glyph-icon,
+.jfx-toggle-node .glyph-icon {
+  -fx-fill: -fx-text-primary-color;
 }
 
-.round-button-random:pressed,
-.round-button-random:selected,
-.round-button-repeat:pressed,
-.round-button-repeat.repeat-all,
-.round-button-repeat.repeat-one {
-  -fx-background-color: #4a6c93;
+.round-button-play .glyph-icon {
+  -glyph-name: "PLAY_ARROW";
+  -glyph-size: 35px;
 }
 
-.round-button-repeat.repeat-one {
-  -fx-background-image: url("images/repeat_icon_white_one.png");
+.round-button-play.playing .glyph-icon {
+  -glyph-name: "PAUSE";
 }
 
-.settings-separator {
-  /*-fx-background-color: #000000;*/
+.round-button-prev .glyph-icon {
+  -glyph-name: "SKIP_PREVIOUS";
+  -glyph-size: 25px;
+}
+
+.round-button-next .glyph-icon {
+  -glyph-name: "SKIP_NEXT";
+  -glyph-size: 25px;
+}
+
+.round-button-volume-min .glyph-icon {
+  -glyph-name: "VOLUME_MUTE";
+  -glyph-size: 20px;
+}
+
+.round-button-volume-max .glyph-icon {
+  -glyph-name: "VOLUME_UP";
+  -glyph-size: 20px;
+}
+
+.round-button-repeat .glyph-icon {
+  -glyph-name: "REPEAT";
+  -glyph-size: 16px;
+}
+
+.round-button-random .glyph-icon {
+  -glyph-name: "SHUFFLE";
+  -glyph-size: 16px;
 }
 
 .progress-time {
-  -fx-text-fill: white;
+  -fx-text-fill: -fx-text-primary-color;
 }
 
-.progress-slider {
+/* SLIDER */
+
+.slider {
 
 }
+
+.slider > .thumb {
+  -fx-background-color: -fx-bg-accent-color;
+}
+
+.slider .track {
+  -fx-background-color: -fx-text-primary-color;
+  -fx-pref-height: 3px;
+  -fx-pref-width: 3px;
+}
+
 
 .song-title {
-  -fx-text-fill: white;
+  -fx-text-fill: -fx-text-primary-color;
 }
 
-.volume-slider {
-  -fx-alignment: center;
+/* Options */
+
+.control-panel .control-panel-settings .jfx-hamburger{
+  -fx-padding: 10.0;
+  -fx-spacing: 4px;
+  -fx-cursor: hand;
 }
 
-.volume-min-icon,
-.volume-max-icon {
-  -fx-background-position: center;
-  -fx-background-repeat: no-repeat;
-  -fx-background-size: 16px 16px;
-  -fx-background-color: transparent;
-  -fx-min-height: 20;
-  -fx-max-height: 20;
-  -fx-pref-height: 20;
-  -fx-min-width: 20;
-  -fx-max-width: 20;
-  -fx-pref-width: 20;
+.control-panel .control-panel-settings .jfx-hamburger StackPane {
+  -fx-pref-width: 30px;
+  -fx-pref-height: 4px;
+  -fx-background-color: -fx-text-primary-color;
+  -fx-background-radius: 5px;
 }
 
-.volume-min-icon {
-  -fx-background-image: url("images/mute_volume_icon_white.png");
+.control-panel .control-panel-settings .jfx-rippler {
+  -fx-rippler-fill: -fx-bg-light-primary-color;
 }
 
-.volume-max-icon {
-  -fx-background-image: url("images/max_volume_icon_white.png");
+.control-panel .control-panel-settings .jfx-options-burger {
+  -fx-padding: 15px;
+}
+.control-panel .control-panel-settings .jfx-options-burger StackPane {
+  -fx-pref-width: 4px;
 }

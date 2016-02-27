@@ -1,10 +1,10 @@
 package com.greymax.vkplayer.ui;
 
+import com.jfoenix.skins.JFXSliderSkin;
 import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.control.Control;
-
-import java.util.Arrays;
-import java.util.List;
+import javafx.scene.control.Slider;
 
 public class UIUtils {
 
@@ -17,18 +17,12 @@ public class UIUtils {
     }
   }
 
-  public static void addClassFromQueue(Control control, String... classNames) {
-    ObservableList<String> styleClass = control.getStyleClass();
-    List<String> classNamesList = Arrays.asList(classNames);
-    String existingClass = classNamesList.stream().filter(styleClass::contains).findFirst().orElse(null);
-    if (existingClass == null) {
-      styleClass.add(classNamesList.get(0));
-    } else {
-      styleClass.remove(existingClass);
-      int classIndex = classNamesList.indexOf(existingClass);
-      if (classIndex < classNamesList.size() - 1) {
-        styleClass.add(classNamesList.get(classIndex + 1));
+  public static void disableSliderAnimatedThumb(Slider slider) {
+    slider.skinProperty().addListener((observable, oldValue, newValue) -> {
+      if (newValue instanceof JFXSliderSkin) {
+        ObservableList<Node> nodes = ((JFXSliderSkin) newValue).getChildren();
+        nodes.get(nodes.size() - 2).setVisible(false);
       }
-    }
+    });
   }
 }

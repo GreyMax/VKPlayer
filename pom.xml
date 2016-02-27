@@ -38,6 +38,7 @@
         <version>2.5.2</version>
         <executions>
           <execution>
+            <id>springSocialVkontakte</id>
             <phase>package</phase>
             <goals>
               <goal>install-file</goal>
@@ -48,6 +49,20 @@
               <version>1.1.0.BUILD-SNAPSHOT</version>
               <packaging>jar</packaging>
               <file>${project.basedir}/lib/spring-social-vkontakte-1.1.0.BUILD-SNAPSHOT.jar</file>
+            </configuration>
+          </execution>
+          <execution>
+            <id>jfoenix</id>
+            <phase>package</phase>
+            <goals>
+              <goal>install-file</goal>
+            </goals>
+            <configuration>
+              <groupId>com.jfoenix</groupId>
+              <artifactId>jfoenix</artifactId>
+              <version>0.0.0-SNAPSHOT</version>
+              <packaging>jar</packaging>
+              <file>${project.basedir}/lib/jfoenix.jar</file>
             </configuration>
           </execution>
         </executions>
@@ -162,6 +177,20 @@
       <groupId>com.airhacks</groupId>
       <artifactId>afterburner.fx</artifactId>
       <version>1.6.2</version>
+    </dependency>
+
+    <!-- JavaFX Material Design (https://github.com/jfoenixadmin/JFoenix) -->
+
+    <dependency>
+      <groupId>com.jfoenix</groupId>
+      <artifactId>jfoenix</artifactId>
+      <version>0.0.0-SNAPSHOT</version>
+    </dependency>
+
+    <dependency>
+      <groupId>de.jensd</groupId>
+      <artifactId>fontawesomefx</artifactId>
+      <version>8.8</version>
     </dependency>
 
     <!--Hibernate-->

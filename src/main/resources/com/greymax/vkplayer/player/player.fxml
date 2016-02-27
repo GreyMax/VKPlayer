@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.greymax.vkplayer.player.playlistbox.PlaylistBox?>
-<?import com.greymax.vkplayer.ui.components.searchbox.SearchBox?>
 <?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Text?>
-
 <StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.greymax.vkplayer.player.PlayerPresenter">
   <VBox alignment="TOP_CENTER">
     <HBox fx:id="controlPanelContainer" />

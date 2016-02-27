@@ -30,7 +30,7 @@ public class AuthPresenter implements Initializable {
         String url = webEngine.getLocation();
         if (url.contains(AuthService.VK_AUTH_ACCESS_TOKEN_KEY)) {
           authService.createConnection(getTokenFromUrl(url));
-          loginHandler.handle(new Event(AuthEventTypes.SUCCESS.getValue()));
+          loginHandler.handle(new AuthEvent(AuthEvent.SUCCESS));
         }
       }
     });
