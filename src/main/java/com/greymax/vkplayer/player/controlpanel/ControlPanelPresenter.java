@@ -1,6 +1,6 @@
 package com.greymax.vkplayer.player.controlpanel;
 
-import com.greymax.vkplayer.ui.UIUtils;
+import com.greymax.vkplayer.UIUtils;
 import com.jfoenix.controls.JFXDecorator;
 import com.jfoenix.controls.JFXPopup;
 import com.jfoenix.controls.JFXRippler;

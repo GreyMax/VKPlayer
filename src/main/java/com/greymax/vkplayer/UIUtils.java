@@ -1,4 +1,4 @@
-package com.greymax.vkplayer.ui;
+package com.greymax.vkplayer;
 
 import com.jfoenix.skins.JFXSliderSkin;
 import javafx.collections.ObservableList;

@@ -1,8 +1,5 @@
-package com.greymax.vkplayer.ui.components.playlist;
+package com.greymax.vkplayer.player.playlist;
 
-import com.greymax.vkplayer.player.playlist.PlaylistEvent;
-import com.greymax.vkplayer.player.playlist.PlaylistEventType;
-import com.greymax.vkplayer.player.playlist.PlaylistType;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
