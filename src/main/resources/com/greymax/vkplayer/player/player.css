@@ -11,3 +11,8 @@
   -fx-min-height: 200;
   -fx-min-width: 200;
 }
+
+.playlist-title {
+  -fx-font-size: 12px;
+  -fx-font-weight: BOLD;
+}
