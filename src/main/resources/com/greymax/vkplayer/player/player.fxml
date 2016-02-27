@@ -6,77 +6,44 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Text?>
-<StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.greymax.vkplayer.player.PlayerPresenter">
-  <VBox alignment="TOP_CENTER">
-    <HBox fx:id="controlPanelContainer" />
-    <SplitPane fx:id="splitPane" dividerPositions="0.3" focusTraversable="true" VBox.vgrow="ALWAYS" styleClass="player-main-window">
+<?import com.greymax.vkplayer.player.controlpanel.ControlPanel?>
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.greymax.vkplayer.player.PlayerPresenter">
+  <top>
+    <ControlPanel />
+  </top>
+  <center>
+    <SplitPane dividerPositions="0.3" focusTraversable="true" VBox.vgrow="ALWAYS" styleClass="player-main-window">
       <items>
-
         <!-- Playlists & Friends -->
-        <HBox styleClass="player-left-bar" SplitPane.resizableWithParent="false">
-          <VBox HBox.hgrow="ALWAYS" SplitPane.resizableWithParent="false">
-            <SplitPane dividerPositions="0.4" focusTraversable="true" orientation="VERTICAL" VBox.vgrow="ALWAYS" style="-fx-background-color: #d1d1d1;">
-              <items>
-                <!-- Playlists -->
-                <HBox SplitPane.resizableWithParent="false" style="-fx-background-color: transparent;">
-                  <VBox HBox.hgrow="ALWAYS" style="-fx-background-color: transparent;">
-                    <HBox spacing="3.0" VBox.vgrow="NEVER" style="-fx-background-color: transparent;">
-                      <VBox HBox.hgrow="ALWAYS" style="-fx-background-color: transparent;">
-                        <padding>
-                          <Insets left="3"/>
-                        </padding>
-                        <children>
-                          <Text fx:id="playlistTitle" styleClass="playlist-title" text="PLAYLISTS" style="-fx-background-color: transparent"/>
-                        </children>
-                      </VBox>
-                      <Button fx:id="addPlaylistButton" styleClass="playlist-add" onAction="#addPlaylist" visible="false"
-                              minWidth="16" maxWidth="16" prefWidth="16" minHeight="16" maxHeight="16" prefHeight="16" />
-                    </HBox>
-                    <HBox VBox.vgrow="ALWAYS">
-                      <ListView fx:id="playlistItems" HBox.hgrow="ALWAYS" focusTraversable="false">
-                        <items>
-                          <FXCollections fx:factory="observableArrayList">
-                            <PlaylistBox playlistName="Моя музика" playlistType="MY_AUDIO" HBox.hgrow="ALWAYS" />
-                            <PlaylistBox playlistName="Рекомендації" playlistType="RECOMMENDED" HBox.hgrow="ALWAYS" />
-                          </FXCollections>
-                        </items>
-                      </ListView>
-                    </HBox>
-                  </VBox>
+        <SplitPane styleClass="player-left-bar" dividerPositions="0.4" focusTraversable="true" orientation="VERTICAL" VBox.vgrow="ALWAYS" style="-fx-background-color: #d1d1d1;">
+          <items>
+            <!-- Playlists -->
+            <HBox SplitPane.resizableWithParent="false" style="-fx-background-color: transparent;">
+              <VBox HBox.hgrow="ALWAYS" style="-fx-background-color: transparent;">
+                <HBox spacing="3.0" VBox.vgrow="NEVER" style="-fx-background-color: transparent;">
+                  <padding>
+                    <Insets left="3"/>
+                  </padding>
+                  <Text fx:id="playlistTitle" styleClass="playlist-title" text="PLAYLISTS" style="-fx-background-color: transparent"/>
                 </HBox>
-
-                <!-- Friends -->
-                <!-- TODO: not supported -->
-                <!--
-                <HBox>
-                  <VBox HBox.hgrow="ALWAYS">
-                    <HBox VBox.vgrow="NEVER">
-                      <VBox HBox.hgrow="ALWAYS" spacing="3">
-                        <padding>
-                          <Insets left="3"/>
-                        </padding>
-                        <children>
-                          <Text fx:id="friendsTitle" styleClass="friends-title" text="FRIENDS" style="-fx-background-color: transparent"/>
-                        </children>
-                      </VBox>
-                    </HBox>
-                    <HBox VBox.vgrow="NEVER">
-                      <SearchBox HBox.hgrow="ALWAYS"/>
-                    </HBox>
-                    <HBox VBox.vgrow="ALWAYS">
-                      <ListView HBox.hgrow="ALWAYS"/>
-                    </HBox>
-                  </VBox>
+                <HBox VBox.vgrow="ALWAYS">
+                  <ListView fx:id="playlistItems" HBox.hgrow="ALWAYS" focusTraversable="false">
+                    <items>
+                      <FXCollections fx:factory="observableArrayList">
+                        <PlaylistBox playlistName="Моя музика" playlistType="MY_AUDIO" HBox.hgrow="ALWAYS" />
+                        <PlaylistBox playlistName="Рекомендації" playlistType="RECOMMENDED" HBox.hgrow="ALWAYS" />
+                      </FXCollections>
+                    </items>
+                  </ListView>
                 </HBox>
-                -->
-              </items>
-            </SplitPane>
-          </VBox>
-        </HBox>
+              </VBox>
+            </HBox>
+          </items>
+        </SplitPane>
 
         <!-- Songs -->
-        <AnchorPane styleClass="player-right-bar" fx:id="secondPane" />
+        <StackPane styleClass="player-right-bar" fx:id="secondPane"></StackPane>
       </items>
     </SplitPane>
-  </VBox>
-</StackPane>
+  </center>
+</BorderPane>
