@@ -14,6 +14,7 @@ import org.springframework.social.vkontakte.api.VKontakte;
 
 import javax.inject.Inject;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
@@ -23,7 +24,7 @@ public class PlaylistBoxPresenter implements Initializable {
   private static final Logger logger = Logger.getLogger(PlaylistBoxPresenter.class.getName());
   private PlaylistType playlistType;
   private VKontakte vkontakte;
-  private List<Audio> audioList;
+  private List<Audio> audioList = new ArrayList<>();
 
   @Inject
   private AuthService authService;

@@ -43,9 +43,9 @@
         </SplitPane>
 
         <!-- Songs -->
-        <StackPane styleClass="player-right-bar">
-          <AudioList />
-        </StackPane>
+        <VBox styleClass="player-right-bar">
+          <AudioList VBox.vgrow="ALWAYS" />
+        </VBox>
       </items>
     </SplitPane>
   </center>

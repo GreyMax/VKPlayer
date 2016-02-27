@@ -1,18 +1,21 @@
 package com.greymax.vkplayer.player;
 
+import com.greymax.vkplayer.model.PlayerModel;
 import com.greymax.vkplayer.player.playlistbox.PlaylistBox;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
-import org.springframework.social.vkontakte.api.Audio;
 
+import javax.inject.Inject;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class PlayerPresenter implements Initializable {
 
   @FXML public ListView<PlaylistBox> playlistItems;
+
+  @Inject
+  private PlayerModel playerModel;
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -22,8 +25,7 @@ public class PlayerPresenter implements Initializable {
 
     playlistItems.getItems().forEach(PlaylistBox::init);
     playlistItems.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-      List<Audio> audio = newValue.getAudio();
-      // TODO: show audio on right panel
+      playerModel.setAudioList(newValue.getAudio());
     });
 
     playlistItems.getSelectionModel().select(0);

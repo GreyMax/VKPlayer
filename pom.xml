@@ -179,6 +179,14 @@
       <version>8.8</version>
     </dependency>
 
+    <!-- Jackson -->
+
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+
     <!-- Spring Social-->
 
     <dependency>
