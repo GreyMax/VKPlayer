@@ -39,7 +39,7 @@
         <executions>
           <execution>
             <id>springSocialVkontakte</id>
-            <phase>package</phase>
+            <phase>validate</phase>
             <goals>
               <goal>install-file</goal>
             </goals>
@@ -53,7 +53,7 @@
           </execution>
           <execution>
             <id>jfoenix</id>
-            <phase>package</phase>
+            <phase>validate</phase>
             <goals>
               <goal>install-file</goal>
             </goals>
