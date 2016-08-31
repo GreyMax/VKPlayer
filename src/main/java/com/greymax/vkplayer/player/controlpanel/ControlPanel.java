@@ -4,7 +4,7 @@ import javafx.scene.layout.HBox;
 
 public class ControlPanel extends HBox {
 
-  public ControlPanel() {
-    new ControlPanelView().getViewAsync(getChildren()::add);
-  }
+    public ControlPanel() {
+        new ControlPanelView().getViewAsync(getChildren()::add);
+    }
 }

@@ -9,39 +9,39 @@ import java.util.List;
 
 public class PlaylistBox extends HBox {
 
-  private PlaylistBoxPresenter presenter;
-  private PlaylistType playlistType;
-  private String playlistName;
+    private PlaylistBoxPresenter presenter;
+    private PlaylistType playlistType;
+    private String playlistName;
 
-  public PlaylistBox() {
-    PlaylistBoxView view = new PlaylistBoxView();
-    this.getChildren().add(view.getView());
-    this.presenter = (PlaylistBoxPresenter) view.getPresenter();
-  }
+    public PlaylistBox() {
+        PlaylistBoxView view = new PlaylistBoxView();
+        this.getChildren().add(view.getView());
+        this.presenter = (PlaylistBoxPresenter) view.getPresenter();
+    }
 
-  public void init() {
-    presenter.refreshPlaylist(new ActionEvent());
-  }
+    public void init() {
+        presenter.refreshPlaylist(new ActionEvent());
+    }
 
-  public PlaylistType getPlaylistType() {
-    return playlistType;
-  }
+    public PlaylistType getPlaylistType() {
+        return playlistType;
+    }
 
-  public void setPlaylistType(PlaylistType playlistType) {
-    this.playlistType = playlistType;
-    this.presenter.setPlaylistType(playlistType);
-  }
+    public void setPlaylistType(PlaylistType playlistType) {
+        this.playlistType = playlistType;
+        this.presenter.setPlaylistType(playlistType);
+    }
 
-  public String getPlaylistName() {
-    return playlistName;
-  }
+    public String getPlaylistName() {
+        return playlistName;
+    }
 
-  public void setPlaylistName(String playlistName) {
-    this.playlistName = playlistName;
-    presenter.setPlaylistName(playlistName);
-  }
+    public void setPlaylistName(String playlistName) {
+        this.playlistName = playlistName;
+        presenter.setPlaylistName(playlistName);
+    }
 
-  public List<Audio> getAudio() {
-    return presenter.getAudioList();
-  }
+    public List<Audio> getAudio() {
+        return presenter.getAudioList();
+    }
 }

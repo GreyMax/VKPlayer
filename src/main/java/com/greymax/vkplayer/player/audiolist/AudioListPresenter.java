@@ -14,20 +14,20 @@ import java.util.ResourceBundle;
 
 public class AudioListPresenter implements Initializable {
 
-  @Inject
-  private PlayerModel playerModel;
+    @Inject
+    private PlayerModel playerModel;
 
-  @FXML
-  public JFXListView<AudioBox> audioBoxList;
+    @FXML
+    public JFXListView<AudioBox> audioBoxList;
 
-  @Override
-  public void initialize(URL location, ResourceBundle resources) {
-    if (!playerModel.audioListProperty().isEmpty()) populateAudioBoxes(playerModel.getAudioList());
-    playerModel.audioListProperty().addListener((observable, oldValue, newValue) -> populateAudioBoxes(newValue));
-  }
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        if (!playerModel.audioListProperty().isEmpty()) populateAudioBoxes(playerModel.getAudioList());
+        playerModel.audioListProperty().addListener((observable, oldValue, newValue) -> populateAudioBoxes(newValue));
+    }
 
-  private void populateAudioBoxes(List<Audio> list) {
-    audioBoxList.getItems().clear();
-    list.forEach((audio) -> audioBoxList.getItems().add(new AudioBox(audio)));
-  }
+    private void populateAudioBoxes(List<Audio> list) {
+        audioBoxList.getItems().clear();
+        list.forEach(audio -> audioBoxList.getItems().add(new AudioBox(audio)));
+    }
 }
