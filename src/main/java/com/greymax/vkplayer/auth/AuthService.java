@@ -1,7 +1,7 @@
 package com.greymax.vkplayer.auth;
 
 import com.greymax.vkplayer.VKPlayerPreferences;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.oauth2.AccessGrant;
