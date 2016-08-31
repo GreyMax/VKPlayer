@@ -1,0 +1,113 @@
+buildscript {
+    dependencies {
+        classpath group: 'de.dynamicfiles.projects.gradle.plugins', name: 'javafx-gradle-plugin', version: '8.5.2'
+    }
+
+    repositories {
+        mavenCentral()
+    }
+}
+
+apply plugin: 'idea'
+apply plugin: 'java'
+apply plugin: 'javafx-gradle-plugin'
+
+repositories {
+    flatDir {
+        dirs 'lib'
+    }
+    mavenCentral()
+}
+
+dependencies{
+    // this dependency is only required when using UserJvmOptionsService
+    // when using Oracle JDK
+    // compile files("${System.properties['java.home']}/../lib/packager.jar")
+    // when using OpenJFX (Ubuntu), please adjust accordingly
+    // compile files("/usr/share/java/openjfx/lib/packager.jar")
+
+    // JavaFX framework
+    compile 'com.airhacks:afterburner.fx:1.7.0'
+
+    // JavaFX Material Design (https://github.com/jfoenixadmin/JFoenix)
+    compile name: 'jfoenix'
+
+    // FontAwesomeFX
+    compile 'de.jensd:fontawesomefx:8.8'
+
+    // Jackson
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.8.1'
+
+    // Spring Social
+    compile 'org.springframework.social:spring-social-core:1.1.4.RELEASE'
+    compile name: 'spring-social-vkontakte-1.1.0.BUILD-SNAPSHOT'
+
+    compile 'org.slf4j:slf4j-log4j12:1.7.21'
+    compile 'org.ini4j:ini4j:0.5.4'
+    compile 'commons-io:commons-io:2.5'
+    compile 'org.apache.commons:commons-lang3:3.4'
+}
+
+// these values are the examples and defaults
+// you won't need them all
+
+// configure javafx-gradle-plugin
+jfx {
+    verbose = true
+    mainClass = "com.greymax.vkplayer.VKPlayer"
+    jfxAppOutputDir = "build/jfx/app"
+    jfxMainAppJarName = "VKPlayer.jar"
+    deployDir = "src/main/deploy"
+
+    // gradle jfxJar
+    css2bin = false
+    preLoader = null
+    updateExistingJar = false
+    allPermissions = false
+    manifestAttributes = null // Map<String, String>
+    addPackagerJar = true
+
+    // gradle jfxNative
+    identifier = null // setting this for windows-bundlers makes it possible to generate upgradeable installers (using same GUID)
+    vendor = "Alexander Pasechnik"
+    nativeOutputDir = "build/jfx/native"
+    bundler = "ALL" // set this to some specific, if your don't want all bundlers running, examples "windows.app", "jnlp", ...
+    jvmProperties = null // Map<String, String>
+    jvmArgs = null // List<String>
+    userJvmArgs = null // Map<String, String>
+    launcherArguments = null // List<String>
+    nativeReleaseVersion = "2.0"
+    needShortcut = true
+    needMenu = true
+    appName = "VKPlayer" // this is used for files below "src/main/deploy", e.g. "src/main/deploy/windows/project.ico"
+    additionalAppResources = 'src/main/java' // path to some additional resources when creating application-bundle
+    secondaryLaunchers = null
+    fileAssociations = null // List<Map<String, Object>>
+    noBlobSigning = false // when using bundler "jnlp", you can choose to NOT use blob signing
+    customBundlers // List<String>
+    skipNativeLauncherWorkaround205 = false
+
+    skipNativeLauncherWorkaround124 = false
+    skipNativeLauncherWorkaround167 = false
+    skipJNLPRessourcePathWorkaround182 = false
+    skipSigningJarFilesJNLP185 = false
+    skipSizeRecalculationForJNLP185 = false
+    // don't check for gradle-daemon mode, which makes it required to change some stuff internally
+    skipDaemonModeCheck = false
+    // per default the outcome of the gradle "jarTask" will be used, set this to specify otherwise (like proguard-output)
+    //alternativePathToJarFile = 'build/libs/VKPlayer.out.jar'
+
+    // gradle jfxGenerateKeyStore
+    keyStore = "src/main/deploy/keystore.jks"
+    keyStoreAlias = "myalias"
+    keyStorePassword = "password"
+    keyPassword = null // will default to keyStorePassword
+    keyStoreType = "jks"
+    overwriteKeyStore = false
+
+    certDomain = null // required
+    certOrgUnit = null // defaults to "none"
+    certOrg = null // required
+    certState = null // required
+    certCountry = null // required
+}
