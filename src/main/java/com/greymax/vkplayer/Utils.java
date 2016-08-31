@@ -47,7 +47,7 @@ public class Utils {
   }
 
   public static List<String> checkNewVersion() {
-    List<String> newVersion = new ArrayList<String>();
+    List<String> newVersion = new ArrayList<>();
     try {
       File f = new File(getAppFolderInSystem() + "/Version.ini");
       FileUtils.copyURLToFile(new URL(PLAYER_VERSION_FILE_URL), f);
