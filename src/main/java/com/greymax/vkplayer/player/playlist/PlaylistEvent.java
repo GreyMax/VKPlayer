@@ -5,19 +5,19 @@ import javafx.event.EventType;
 
 public class PlaylistEvent extends Event {
 
-  private Playlist targetPlaylist;
+    private Playlist targetPlaylist;
 
-  public PlaylistEvent(EventType<Event> eventType, Playlist target) {
-    super(eventType);
-    this.targetPlaylist = target;
-  }
+    public PlaylistEvent(EventType<Event> eventType, Playlist target) {
+        super(eventType);
+        this.targetPlaylist = target;
+    }
 
-  public Playlist getTargetPlaylist() {
-    return targetPlaylist;
-  }
+    public Playlist getTargetPlaylist() {
+        return targetPlaylist;
+    }
 
-  @Override
-  public String toString() {
-    return eventType.toString();
-  }
+    @Override
+    public String toString() {
+        return eventType.toString();
+    }
 }

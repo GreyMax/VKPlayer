@@ -12,19 +12,17 @@ import java.util.ResourceBundle;
 
 public class AudioBoxPresenter implements Initializable {
 
-  private ObjectProperty<Audio> audioProperty = new SimpleObjectProperty<>();
+    private ObjectProperty<Audio> audioProperty = new SimpleObjectProperty<>();
 
-  @FXML
-  private Text audioText;
+    @FXML
+    private Text audioText;
 
-  @Override
-  public void initialize(URL location, ResourceBundle resources) {
-    audioProperty.addListener((observable, oldValue, newValue) -> {
-      audioText.setText(newValue.getTitle());
-    });
-  }
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        audioProperty.addListener((observable, oldValue, newValue) -> audioText.setText(newValue.getTitle()));
+    }
 
-  public ObjectProperty<Audio> audioProperty() {
-    return audioProperty;
-  }
+    public ObjectProperty<Audio> audioProperty() {
+        return audioProperty;
+    }
 }
